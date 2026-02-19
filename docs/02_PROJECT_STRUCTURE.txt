@@ -1,0 +1,35 @@
+FILE: docs/02_PROJECT_STRUCTURE.txt
+Estructura del repo (obligatoria)
+
+Repo público GitHub: ibm-joven-web
+
+Carpetas:
+/
+├─ src/
+│  ├─ pages/
+│  │  ├─ index.astro
+│  │  ├─ anuncios.astro
+│  │  ├─ eventos.astro
+│  │  ├─ galeria.astro
+│  │  ├─ nosotros.astro
+│  │  └─ contacto.astro
+│  ├─ components/
+│  └─ layouts/
+├─ public/
+│  └─ data/
+│     ├─ anuncios.json
+│     └─ eventos.json
+├─ scripts/
+│  └─ sync_from_csv.mjs
+├─ docs/
+└─ .github/
+   └─ workflows/
+      └─ publish.yml
+
+Reglas de contenido:
+- public/data/*.json son artefactos generados automáticamente por scripts.
+- src/pages deben consumir esos JSON y renderizar cards/listas.
+
+Astro:
+- SSG (build produce dist/)
+- Tailwind para estilos

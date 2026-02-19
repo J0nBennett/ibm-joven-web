@@ -1,0 +1,19 @@
+FILE: docs/08_TROUBLESHOOTING.txt
+Troubleshooting
+
+NO SE ACTUALIZA LA WEB
+- Verificar que la fila tenga estado=PUBLISH.
+- Revisar que el Sheet esté publicado como CSV.
+- Revisar GitHub Actions -> último run:
+  - si falló, mirar el error.
+
+EL SCRIPT FALLA
+- Falta secret ANUNCIOS_CSV_URL o EVENTOS_CSV_URL.
+- Columnas cambiadas o faltantes.
+- Fecha/hora con formato incorrecto.
+- URL CSV incorrecta o no accesible públicamente.
+
+CLOUDFLARE NO ACTUALIZA
+- Debe haber un push reciente en main.
+- Revisar configuración de Pages:
+  - build command y output dir correctos.

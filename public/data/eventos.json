@@ -1,0 +1,12 @@
+[
+  {
+    "id": "E-TEST-001",
+    "titulo": "Evento de Prueba",
+    "fecha": "2026-02-28",
+    "hora": "20:00",
+    "lugar": "LocalHost",
+    "descripcion_md": "Este es un evento de prueba generado automáticamente.",
+    "imagen_url": "",
+    "estado": "PUBLISH"
+  }
+]

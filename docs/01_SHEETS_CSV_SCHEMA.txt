@@ -1,0 +1,41 @@
+FILE: docs/01_SHEETS_CSV_SCHEMA.txt
+Google Sheets como CMS (CSV público)
+
+IMPORTANTE
+- Se crean 2 tabs/hojas en un mismo Google Sheet: "anuncios" y "eventos".
+- Cada hoja se publica individualmente como CSV (Publicar en la web).
+- Las columnas deben estar EXACTAS, sin cambios de nombre.
+
+TAB: anuncios (CSV)
+Encabezados EXACTOS (fila 1):
+id,titulo,fecha,categoria,resumen,contenido_md,imagen_url,estado
+
+Reglas:
+- id: string único, ej: A-2026-0001
+- fecha: YYYY-MM-DD
+- categoria: GENERAL | EVENTO | SERVICIO | JOVENES
+- contenido_md: texto (se permite markdown simple)
+- imagen_url: opcional (puede quedar vacío)
+- estado: DRAFT o PUBLISH
+
+TAB: eventos (CSV)
+Encabezados EXACTOS (fila 1):
+id,titulo,fecha,hora,lugar,descripcion_md,imagen_url,estado
+
+Reglas:
+- id: string único, ej: E-2026-0001
+- fecha: YYYY-MM-DD
+- hora: HH:MM (24h)
+- lugar: texto corto
+- descripcion_md: markdown simple
+- imagen_url: opcional
+- estado: DRAFT o PUBLISH
+
+PUBLICACION CSV (Google Sheets)
+- Compartir: "Cualquiera con el enlace" (solo ver)
+- Publicar en la web -> seleccionar hoja -> formato CSV
+- Obtener 2 URLs:
+  ANUNCIOS_CSV_URL
+  EVENTOS_CSV_URL
+
+NO usar APIs privadas ni credenciales.

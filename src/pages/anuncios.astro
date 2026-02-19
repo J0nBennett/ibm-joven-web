@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnuncioCard from '../components/AnuncioCard.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+let anuncios = [];
+
+try {
+  const anunciosPath = path.join(process.cwd(), 'public', 'data', 'anuncios.json');
+  const anunciosData = await fs.readFile(anunciosPath, 'utf-8');
+  anuncios = JSON.parse(anunciosData);
+} catch (e) {
+  console.error("Error loading data:", e);
+}
+---
+
+<Layout title="Anuncios - IBM Joven">
+  <section class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Anuncios y Novedades</h1>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {anuncios.length > 0 ? (
+        anuncios.map(anuncio => (
+          <AnuncioCard 
+            id={anuncio.id}
+            titulo={anuncio.titulo}
+            fecha={anuncio.fecha}
+            categoria={anuncio.categoria}
+            resumen={anuncio.resumen}
+          />
+        ))
+      ) : (
+        <p class="text-gray-500 col-span-2 text-center py-10">No hay anuncios disponibles.</p>
+      )}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,24 @@
+FILE: docs/07_PUBLISH_GUIDE_TEAM.txt
+Guía rápida para el equipo (no técnico)
+
+PUBLICAR UN ANUNCIO
+1) Abrir Google Sheet
+2) Ir a hoja "anuncios"
+3) Agregar fila completando:
+   - id, titulo, fecha, categoria, resumen, contenido_md
+4) Poner estado = PUBLISH
+Listo: en unas horas aparece en la web (o correr workflow manual).
+
+PUBLICAR UN EVENTO
+1) Hoja "eventos"
+2) Agregar fila completando:
+   - id, titulo, fecha, hora, lugar, descripcion_md
+3) estado = PUBLISH
+
+BORRADOR
+- Si estado = DRAFT, NO se publica.
+
+REGLAS IMPORTANTES
+- Respetar formato de fecha: YYYY-MM-DD
+- Respetar formato de hora: HH:MM
+- No cambiar nombres de columnas.

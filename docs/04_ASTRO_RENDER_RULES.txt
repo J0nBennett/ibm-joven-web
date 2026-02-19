@@ -1,0 +1,38 @@
+FILE: docs/04_ASTRO_RENDER_RULES.txt
+Reglas de render en Astro
+
+PAGINA: Home (/)
+- Mostrar:
+  1) Anuncio destacado = el más reciente (primer item de anuncios.json).
+  2) Próximos 3 eventos (primeros 3 items de eventos.json).
+- Debe ser mobile-first y rápido.
+
+PAGINA: /anuncios
+- Listado de anuncios en cards:
+  - titulo
+  - fecha
+  - categoria
+  - resumen
+  - link a detalle (opcional si se implementa)
+
+PAGINA: /eventos
+- Listado de eventos en cards:
+  - titulo
+  - fecha + hora
+  - lugar
+  - resumen/descripcion corta
+
+PAGINA: /galeria
+- MVP: mostrar una lista de álbumes por links (puede estar hardcodeado al principio o venir de una 3ra hoja CSV opcional).
+- Para MVP, puede ser: “Galería” con links a Google Drive/Photos.
+
+PAGINA: /nosotros
+- Texto de visión + horarios + líderes (simple).
+- Puede estar estático por ahora.
+
+PAGINA: /contacto
+- WhatsApp + redes + mapa (link a Google Maps).
+
+REGLAS
+- No cargar JS innecesario.
+- Mantener estilo consistente (Tailwind).

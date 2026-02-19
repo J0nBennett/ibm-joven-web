@@ -1,0 +1,28 @@
+FILE: docs/00_OVERVIEW.txt
+IBM Joven Web (Iglesia Bautista Maranata - Jóvenes)
+
+OBJETIVO
+- Sitio web estático (SSG) hecho con Astro + Tailwind.
+- Contenido administrado desde Google Sheets publicados como CSV.
+- Automatización gratuita para actualizar el sitio: GitHub Actions.
+- Deploy gratuito: Cloudflare Pages (redeploy automático por push en main).
+
+REGLAS DURAS
+- Todo debe ser 100% gratis y online.
+- NO usar APIs con auth (Google Cloud, service accounts, etc.).
+- NO usar base de datos.
+- NO usar backend.
+- Lectura de contenido únicamente por URLs CSV públicas.
+- La web NUNCA debe mostrar contenido con estado DRAFT.
+- El pipeline debe poder correr manual y por cron.
+
+PAGINAS MVP
+- / (Home)
+- /anuncios
+- /eventos
+- /galeria (por link a álbum/carpeta)
+- /nosotros
+- /contacto
+
+AUTOMATIZACION (flujo)
+Google Sheets (CSV) -> Script sync -> genera JSON en public/data -> commit & push -> Cloudflare Pages redeploy

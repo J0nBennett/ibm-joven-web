@@ -1,0 +1,35 @@
+FILE: docs/03_SYNC_SCRIPT_SPEC.txt
+Especificación del script de sincronización
+
+Archivo: scripts/sync_from_csv.mjs
+
+INPUTS (variables de entorno)
+- ANUNCIOS_CSV_URL: URL pública del CSV de anuncios
+- EVENTOS_CSV_URL: URL pública del CSV de eventos
+
+OUTPUTS (archivos generados)
+- public/data/anuncios.json
+- public/data/eventos.json
+
+FUNCIONES DEL SCRIPT
+1) Descargar CSV de anuncios y eventos (fetch).
+2) Parsear CSV (modo simple).
+3) Validar que existan las columnas obligatorias.
+4) Filtrar solamente filas con estado == "PUBLISH".
+5) Validar formatos mínimos:
+   - anuncios.fecha: YYYY-MM-DD
+   - eventos.fecha: YYYY-MM-DD
+   - eventos.hora: HH:MM
+6) Ordenar:
+   - anuncios: por fecha DESC (más reciente primero)
+   - eventos: por fecha ASC (próximos primero)
+7) Guardar JSON formateado (pretty) en public/data/.
+
+ERRORES
+- Si falta una variable de entorno: abortar con mensaje claro.
+- Si falta una columna obligatoria: abortar con mensaje claro.
+- Si el CSV no se puede descargar: abortar con mensaje claro.
+
+NOTA MVP
+- Parseo CSV simple (sin comillas y sin comas dentro de campos).
+- Si se necesita CSV robusto se puede agregar parser más adelante, pero ahora mantener simple y gratis.

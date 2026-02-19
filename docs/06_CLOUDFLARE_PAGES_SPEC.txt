@@ -1,0 +1,14 @@
+FILE: docs/06_CLOUDFLARE_PAGES_SPEC.txt
+Cloudflare Pages (deploy gratis)
+
+- Conectar Cloudflare Pages al repo de GitHub.
+- Branch: main
+- Build command: npm run build
+- Output directory: dist
+
+Con cada push a main:
+- Cloudflare Pages hace rebuild y publica.
+- No se requiere backend.
+
+Resultado final:
+- URL pública del sitio lista para compartir.

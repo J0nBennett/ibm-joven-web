@@ -1,0 +1,12 @@
+[
+  {
+    "id": "A-TEST-001",
+    "titulo": "Bienvenidos a la nueva web (TEST)",
+    "fecha": "2026-02-19",
+    "categoria": "GENERAL",
+    "resumen": "Estamos estrenando sitio web. Estos son datos de prueba generados localmente.",
+    "contenido_md": "Este contenido es generado porque no se detectaron las URLs de los CSV.",
+    "imagen_url": "",
+    "estado": "PUBLISH"
+  }
+]

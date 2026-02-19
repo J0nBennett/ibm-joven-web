@@ -1,0 +1,32 @@
+FILE: docs/05_GITHUB_ACTIONS_SPEC.txt
+GitHub Actions (automatización gratis)
+
+Archivo: .github/workflows/publish.yml
+
+TRIGGERS
+- workflow_dispatch (manual)
+- schedule (cron) cada 6 horas
+
+PASOS
+1) checkout
+2) setup-node (Node 20)
+3) npm ci
+4) correr script:
+   - node scripts/sync_from_csv.mjs
+   con env:
+   - ANUNCIOS_CSV_URL
+   - EVENTOS_CSV_URL
+5) Si hubo cambios en public/data/*.json:
+   - git config user
+   - git add public/data/*.json
+   - git commit -m "chore: sync content from sheets"
+   - git push
+
+RESULTADO
+- Cada vez que cambias el Sheet y está en PUBLISH:
+  GitHub Action actualiza JSON y hace push.
+  Cloudflare Pages redeploya automáticamente con ese push.
+
+NOTAS
+- Guardar ANUNCIOS_CSV_URL y EVENTOS_CSV_URL como GitHub Secrets.
+- Repo público recomendado (free actions más cómodo).

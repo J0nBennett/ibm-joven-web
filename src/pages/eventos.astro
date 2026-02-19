@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EventoCard from '../components/EventoCard.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+let eventos = [];
+
+try {
+  const eventosPath = path.join(process.cwd(), 'public', 'data', 'eventos.json');
+  const eventosData = await fs.readFile(eventosPath, 'utf-8');
+  eventos = JSON.parse(eventosData);
+} catch (e) {
+  console.error("Error loading data:", e);
+}
+---
+
+<Layout title="Eventos - IBM Joven">
+  <section class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Calendario de Eventos</h1>
+
+    <div class="space-y-6">
+      {eventos.length > 0 ? (
+        eventos.map(evento => (
+          <EventoCard 
+            id={evento.id}
+            titulo={evento.titulo}
+            fecha={evento.fecha}
+            hora={evento.hora}
+            lugar={evento.lugar}
+            descripcion_md={evento.descripcion_md}
+            className="border-l-4 border-l-blue-500"
+          />
+        ))
+      ) : (
+        <p class="text-gray-500 text-center py-10">No hay eventos próximos.</p>
+      )}
+    </div>
+  </section>
+</Layout>
