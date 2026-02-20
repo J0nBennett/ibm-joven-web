@@ -1,11 +1,12 @@
 [
   {
-    "id": "E-TEST-001",
-    "titulo": "Evento de Prueba",
-    "fecha": "2026-02-28",
+    "id": "E-TEST-002",
+    "titulo": "CiberPeña Cristiana",
+    "fecha": "2026-03-03",
     "hora": "20:00",
-    "lugar": "LocalHost",
-    "descripcion_md": "Este es un evento de prueba generado automáticamente.",
+    "lugar": "Google Meet / Discord",
+    "resumen": "Reunión quincenal (Martes) para reflexionar juntos.",
+    "descripcion_md": "Únete a nuestra **CiberPeña** de cada 15 días (Martes). Un espacio relajado para charlar, debatir temas de fe y orar unos por otros desde casa.",
     "imagen_url": "",
     "estado": "PUBLISH"
   }

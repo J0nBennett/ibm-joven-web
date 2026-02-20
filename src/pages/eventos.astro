@@ -20,6 +20,84 @@ try {
     <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Calendario de Eventos</h1>
 
     <div class="space-y-6">
+      
+      <!-- EVENTS PINNED: Weekly Schedule -->
+      <article class="bg-white rounded-xl shadow-md border-l-4 border-l-purple-500 overflow-hidden relative">
+          <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Fijo</div>
+          
+          <div class="flex flex-col md:flex-row">
+            <div class="bg-purple-50 text-purple-900 flex flex-col items-center justify-center p-6 md:w-40 shrink-0 text-center border-b md:border-b-0 md:border-r border-purple-100">
+                <span class="text-5xl mb-2">📅</span>
+                <span class="font-bold text-sm tracking-wide">HORARIOS<br>SEMANALES</span>
+            </div>
+
+            <div class="p-6 flex-grow">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Reuniones de Iglesia</h3>
+                
+                <div class="space-y-4">
+                    {/* Helper to generate recurring event links */}
+                    {(() => {
+                        const getLink = (title, dayIndex, time) => {
+                            // dayIndex: 0=Sun, 1=Mon ... 6=Sat
+                            const now = new Date();
+                            const resultDate = new Date();
+                            resultDate.setDate(now.getDate() + (dayIndex + 7 - now.getDay()) % 7);
+                            // If today is the day and time passed, move to next week
+                            const [h, m] = time.split(':');
+                            if (resultDate.getDay() === now.getDay()) {
+                                if (now.getHours() > parseInt(h) || (now.getHours() === parseInt(h) && now.getMinutes() >= parseInt(m))) {
+                                    resultDate.setDate(resultDate.getDate() + 7);
+                                }
+                            }
+                            
+                            const format = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+                            
+                            const startD = new Date(resultDate);
+                            startD.setHours(parseInt(h), parseInt(m), 0);
+                            const endD = new Date(startD.getTime() + 90 * 60000); // 1.5 hours
+                            
+                            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title + " - IBM Joven")}&dates=${format(startD)}/${format(endD)}&details=Te%20esperamos%20en%20la%20iglesia!&location=Iglesia%20Bautista%20Maranata%2C%20Luque`;
+                        };
+
+                        const items = [
+                            { day: "Sábados", time: "19:30", title: "Reunión de Jóvenes", dayIdx: 6 },
+                            { day: "Domingos", time: "08:30", title: "Escuela Dominical", dayIdx: 0 },
+                            { day: "Domingos", time: "09:15", title: "Culto Central", dayIdx: 0 },
+                            { day: "Domingos", time: "17:00", title: "Deportes", dayIdx: 0 },
+                        ];
+
+                        return items.map(item => (
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-purple-200 transition-colors gap-3">
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-white p-2 rounded-md shadow-sm text-purple-700 font-bold text-center min-w-[3.5rem]">
+                                        <div class="text-xs uppercase text-gray-400">{item.day.substring(0,3)}</div>
+                                        <div>{item.time}</div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">{item.title}</h4>
+                                        <p class="text-xs text-gray-500">Iglesia Bautista Maranata</p>
+                                    </div>
+                                </div>
+                                
+                                <a 
+                                    href={getLink(item.title, item.dayIdx, item.time)}
+                                    target="_blank"
+                                    class="inline-flex items-center justify-center text-sm font-medium text-purple-700 bg-purple-100 hover:bg-purple-200 px-4 py-2 rounded-md transition-colors whitespace-nowrap"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v6m0 0l-3-3m3 3l3-3" />
+                                    </svg>
+                                    Agendar
+                                </a>
+                            </div>
+                        ));
+                    })()}
+                </div>
+            </div>
+          </div>
+      </article>
+
       {eventos.length > 0 ? (
         eventos.map(evento => (
           <EventoCard 

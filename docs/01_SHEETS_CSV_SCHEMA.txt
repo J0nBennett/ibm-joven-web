@@ -39,3 +39,14 @@ PUBLICACION CSV (Google Sheets)
   EVENTOS_CSV_URL
 
 NO usar APIs privadas ni credenciales.
+
+TAB: galeria (CSV)
+Encabezados EXACTOS (fila 1):
+id,titulo,url_album,foto_portada,estado
+
+Reglas:
+- id: string único
+- titulo: Nombre del álbum
+- url_album: Link a Google Drive / Google Photos
+- foto_portada: Link directo a imagen de portada (opcional)
+- estado: PUBLISH | DRAFT

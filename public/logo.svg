@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100" fill="none">
+    <!-- Icon Group -->
+    <g transform="translate(0,0)">
+        <!-- Triangle 1: Left Pillar (Blue-300) -->
+        <path d="M10 90 L35 20 L60 90 Z" fill="#93c5fd" opacity="0.9" />
+        
+        <!-- Triangle 2: Right Pillar (White/Blue-100) -->
+        <path d="M40 90 L65 20 L90 90 Z" fill="#dbeafe" opacity="0.8" />
+        
+        <!-- Triangle 3: Center Inverted (Deep Blue/Accent) -->
+        <path d="M35 35 L50 80 L65 35 Z" fill="#3b82f6" />
+    </g>
+    
+    <!-- Text Group -->
+    <g transform="translate(110, 65)">
+        <text x="0" y="0" font-family="Arial, sans-serif" font-weight="900" font-size="60" fill="white" letter-spacing="-2">IBM</text>
+        <text x="0" y="28" font-family="Arial, sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="8" opacity="0.9">JOVEN</text>
+    </g>
+</svg>

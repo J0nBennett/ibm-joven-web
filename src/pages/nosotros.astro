@@ -3,44 +3,97 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Nosotros - IBM Joven">
-    <section class="max-w-3xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-6">Nosotros</h1>
-        
-        <div class="prose prose-lg text-gray-600 mb-12">
-            <p class="lead text-xl text-gray-800 mb-6">
-                Somos el ministerio de jóvenes de la Iglesia Bautista Maranata. Un espacio para crecer, compartir y servir juntos.
-            </p>
-            <p>
-                Nuestro propósito es conectar con Dios y con otros jóvenes, impactando nuestra comunidad con el amor de Jesús. 
-                Creemos en una fe activa, dinámica y relevante para los tiempos que vivimos.
+    <section class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-6">Nosotros</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Somos el ministerio de jóvenes de la Iglesia Bautista Maranata. 
+                <span class="block mt-2 font-medium text-gray-800">Un espacio para crecer, compartir y servir juntos.</span>
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                <h2 class="text-2xl font-bold text-blue-900 mb-4">Misión</h2>
-                <p>Alcanzar a la juventud con el mensaje de esperanza, equiparlos para la vida y enviarlos a servir con propósito.</p>
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <!-- Misión Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-blue-900 p-6 rounded-2xl shadow-lg border border-slate-700/50 transform hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-500 rounded-full opacity-10 blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                
+                <div class="relative z-10">
+                    <div class="bg-blue-800/50 w-10 h-10 rounded-lg flex items-center justify-center text-white text-xl mb-4 shadow-md border border-blue-500/30">
+                        🚀
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Nuestra Misión</h2>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        Alcanzar a la juventud con el mensaje de esperanza, <strong class="text-blue-400">equiparlos para la vida</strong> y enviarlos a servir con propósito.
+                    </p>
+                </div>
             </div>
-             <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                <h2 class="text-2xl font-bold text-blue-900 mb-4">Visión</h2>
-                <p>Ser una generación apasionada por Dios que transforma su entorno.</p>
+
+            <!-- Visión Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-900 p-6 rounded-2xl shadow-lg border border-slate-700/50 transform hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-indigo-500 rounded-full opacity-10 blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                
+                <div class="relative z-10">
+                   <div class="bg-indigo-800/50 w-10 h-10 rounded-lg flex items-center justify-center text-white text-xl mb-4 shadow-md border border-indigo-500/30">
+                        💡
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Nuestra Visión</h2>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        Ser una generación <strong class="text-indigo-400">apasionada por Dios</strong> que transforma su entorno con fe y amor.
+                    </p>
+                </div>
             </div>
         </div>
 
         <div class="bg-gray-50 p-8 rounded-xl">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Nuestros Horarios</h2>
-            <div class="space-y-4 max-w-md mx-auto">
-                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                    <span class="font-semibold text-gray-700">Reunión de Jóvenes</span>
-                    <span class="font-bold text-blue-700">Sábados 20:00 hs</span>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros Horarios</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 1: Jovenes -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-600 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="bg-blue-100 p-3 rounded-full text-blue-600 text-2xl">🔥</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-900">Reunión de Jóvenes</h3>
+                            <p class="text-blue-600 font-semibold">Sábados 19:30 hs</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm">Un tiempo exclusivo para conectar, adorar y aprender juntos.</p>
                 </div>
-                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                    <span class="font-semibold text-gray-700">Escuela Bíblica</span>
-                    <span class="font-bold text-blue-700">Domingos 10:00 hs</span>
+
+                <!-- Card 2: Escuela Dominical -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-orange-500 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="bg-orange-100 p-3 rounded-full text-orange-600 text-2xl">📖</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-900">Escuela Dominical</h3>
+                            <p class="text-orange-600 font-semibold">Domingos 08:30 hs</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm">Estudio bíblico profundo para todas las edades.</p>
                 </div>
-                 <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                    <span class="font-semibold text-gray-700">Ensayo de Música</span>
-                    <span class="font-bold text-blue-700">Jueves 19:30 hs</span>
+
+                <!-- Card 3: Culto Central -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-600 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="bg-purple-100 p-3 rounded-full text-purple-600 text-2xl">🙏</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-900">Culto Central</h3>
+                            <p class="text-purple-600 font-semibold">Domingos 09:15 hs</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm">Celebración general con toda la familia de la iglesia.</p>
+                </div>
+
+                <!-- Card 4: Deportes -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-600 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="bg-green-100 p-3 rounded-full text-green-600 text-2xl">⚽</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-900">Deportes</h3>
+                            <p class="text-green-600 font-semibold">Domingos 17:00 hs</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm">Recreación, fútbol, vóley y compañerismo.</p>
                 </div>
             </div>
         </div>
