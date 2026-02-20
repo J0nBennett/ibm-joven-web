@@ -13,11 +13,37 @@ const base = import.meta.env.BASE_URL;
 const {
 	title,
 	description = 'IBM Joven — Comunidad de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Fe, servicio y amistad.',
-	image = `${base}logo.svg`,
+	image = '/og-image.png',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://J0nBennett.github.io');
-const ogImage = new URL(image, canonicalURL);
+const siteUrl = 'https://ibm-joven-web.jonbennettpy.workers.dev';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? siteUrl);
+const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+
+const schemaOrg = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "IBM Joven – Iglesia Bautista Maranata",
+	"url": siteUrl,
+	"logo": `${siteUrl}/logo.svg`,
+	"sameAs": [
+		"https://instagram.com/ibmjoven",
+		"https://facebook.com/ibmjoven"
+	],
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "Santander",
+		"addressLocality": "Luque",
+		"postalCode": "110935",
+		"addressCountry": "PY"
+	},
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"telephone": "+595-992-435-330",
+		"contactType": "customer support",
+		"availableLanguage": "Spanish"
+	}
+};
 ---
 
 <!doctype html>
@@ -37,23 +63,35 @@ const ogImage = new URL(image, canonicalURL);
 		<title>{title}</title>
 		<meta name="description" content={description} />
 
+		<!-- Geolocalización local (Luque, Paraguay) -->
+		<meta name="geo.region" content="PY-10" />
+		<meta name="geo.placename" content="Luque, Paraguay" />
+		<meta name="geo.position" content="-25.2691;-57.4930" />
+		<meta name="ICBM" content="-25.2691, -57.4930" />
+
 		<!-- Open Graph / Facebook / WhatsApp -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:locale" content="es_PY" />
 		<meta property="og:site_name" content="IBM Joven" />
 
 		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href={`${base}favicon_cross.svg`} />
+		<link rel="apple-touch-icon" href={`${base}favicon_cross.svg`} />
+
+		<!-- Schema.org JSON-LD -->
+		<script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 	</head>
 	<body class="bg-gray-50 flex flex-col min-h-screen font-sans">
 		<Navigation />
