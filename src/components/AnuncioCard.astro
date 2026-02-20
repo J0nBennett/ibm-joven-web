@@ -19,13 +19,25 @@ const fechaObj = new Date(fecha + 'T12:00:00');
 const fechaFormateada = fechaObj.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
 
 const tieneContenido = contenido_md.trim().length > 0;
-const htmlContenido = tieneContenido ? await marked.parse(contenido_md) : "";
+
+// Sanitize: elimina <script> y atributos on* antes de inyectar HTML.
+// El contenido viene de Google Sheets (fuente controlada), pero igual se sanitiza
+// por defensa en profundidad.
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/\son\w+\s*=\s*"[^"]*"/gi, '')
+    .replace(/\son\w+\s*=\s*'[^']*'/gi, '')
+    .replace(/\son\w+\s*=\s*[^\s>]*/gi, '');
+}
+
+const htmlContenido = tieneContenido ? sanitizeHtml(await marked.parse(contenido_md)) : "";
 ---
 
 <article class={`group relative flex flex-col h-full bg-slate-900 rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-800 hover:border-blue-500/50 ${className}`}>
   <!-- Decorative Background Glow -->
   <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 opacity-50 group-hover:opacity-100 transition-opacity"></div>
-  
+
   {esFijo && (
     <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider z-20 shadow-lg">
       Fijo
