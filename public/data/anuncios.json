@@ -1,22 +1,13 @@
 [
   {
-    "id": "A-TEST-002",
-    "titulo": "Campamento Semana Santa - Sapukai",
-    "fecha": "2026-02-19",
-    "categoria": "EVENTO",
-    "resumen": "Prepárate para unos días increíbles en el Campamento Sapukai. ¡No te lo pierdas!",
-    "contenido_md": "## Campamento Sapukai 2026\n\nNos vamos de retiro espiritual esta Semana Santa. Será un tiempo de desconexión, amigos y encuentro con Dios.\n\n**Fecha:** 2 al 5 de Abril\n**Costo:** A confirmar\n**Inscripciones:** Con los líderes.",
-    "imagen_url": "",
-    "estado": "PUBLISH"
-  },
-  {
     "id": "A-TEST-001",
-    "titulo": "Bienvenidos a la nueva web de IBM Joven",
-    "fecha": "2026-02-19",
+    "titulo": "¡Bienvenidos a nuestro nuevo espacio digital!",
+    "fecha": "2026-02-20",
     "categoria": "GENERAL",
-    "resumen": "Estamos estrenando sitio web. Aquí podrás enterarte de todas nuestras actividades.",
-    "contenido_md": "Este contenido es generado porque no se detectaron las URLs de los CSV.",
+    "resumen": "Estamos felices de presentarte la nueva plataforma de IBM Joven, diseñada para mantenernos conectados y edificados.",
+    "contenido_md": "## ¡Explora todo lo nuevo!\n\nEstamos muy emocionados de lanzar esta nueva versión de la web de **IBM Joven**. Nuestro objetivo es que este sea un punto de encuentro dinámico para toda la juventud de la Iglesia Bautista Maranata.\n\n**¿Qué encontrarás aquí?**\n\n*   **Versículo del Día:** Una dosis diaria de la Palabra de Dios directamente de 'La Buena Semilla'.\n*   **Próximos Cumpleaños:** No te pierdas ninguna celebración. ¡Festejamos juntos cada vida!\n*   **Calendario Activo:** Mantente al tanto de todas nuestras reuniones, deportes y eventos especiales.\n*   **Galería de Recuerdos:** Revive los mejores momentos de nuestros campamentos y actividades.\n\nTe invitamos a explorar cada sección y a compartir este espacio con otros jóvenes. ¡Que sea de mucha bendición para tu vida!",
     "imagen_url": "",
-    "estado": "PUBLISH"
+    "estado": "PUBLISH",
+    "esFijo": true
   }
 ]

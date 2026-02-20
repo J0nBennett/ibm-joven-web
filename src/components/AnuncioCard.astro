@@ -1,4 +1,6 @@
 ---
+import { marked } from 'marked';
+
 interface Props {
   id: string;
   titulo: string;
@@ -7,60 +9,78 @@ interface Props {
   resumen: string;
   contenido_md?: string;
   className?: string;
+  esFijo?: boolean;
 }
 
-const { id, titulo, fecha, categoria, resumen, contenido_md = "", className = "" } = Astro.props;
+const { id, titulo, fecha, categoria, resumen, contenido_md = "", className = "", esFijo = false } = Astro.props;
 
-// Formatear fecha (avoiding timezone shifts by setting noon)
+// Formatear fecha
 const fechaObj = new Date(fecha + 'T12:00:00');
 const fechaFormateada = fechaObj.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
 
 const tieneContenido = contenido_md.trim().length > 0;
+const htmlContenido = tieneContenido ? await marked.parse(contenido_md) : "";
 ---
 
-<article class={`flex flex-col h-full bg-gradient-to-br from-slate-900 to-blue-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-700/50 ${className}`}>
-  <div class="p-6 pb-8 flex flex-col flex-grow">
-    <div class="flex justify-between items-start mb-4">
-      <span class="inline-block px-3 py-1 text-xs font-bold tracking-wide text-blue-200 uppercase bg-blue-800/40 border border-blue-500/30 rounded-full backdrop-blur-sm">
+<article class={`group relative flex flex-col h-full bg-slate-900 rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-800 hover:border-blue-500/50 ${className}`}>
+  <!-- Decorative Background Glow -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+  
+  {esFijo && (
+    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider z-20 shadow-lg">
+      Fijo
+    </div>
+  )}
+
+  <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10">
+    <div class="flex justify-between items-center mb-3">
+      <span class="inline-block px-2.5 py-0.5 text-[10px] font-black tracking-widest text-blue-400 uppercase bg-blue-950/50 border border-blue-800/50 rounded-md">
         {categoria}
       </span>
-      <span class="text-xs text-slate-400 font-medium whitespace-nowrap">Publicado el: <br class="sm:hidden" />{fechaFormateada}</span>
+      <span class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Publicado el {fechaFormateada}</span>
     </div>
 
-    <h3 class="text-2xl font-bold text-white mb-3 tracking-tight leading-tight line-clamp-2" title={titulo}>
+    <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight leading-snug group-hover:text-blue-300 transition-colors line-clamp-2">
       {titulo}
     </h3>
 
-    <p class="text-slate-300 leading-relaxed mb-4">
+    <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
       {resumen}
     </p>
 
     {tieneContenido && (
       <details class="mt-auto">
-        <summary class="mt-2 inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors cursor-pointer bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700 hover:border-blue-500/50 list-none select-none">
+        <summary class="inline-flex items-center text-xs font-bold text-blue-400 hover:text-white transition-all cursor-pointer bg-blue-900/20 hover:bg-blue-600 px-3 py-1.5 rounded-lg border border-blue-800/30 list-none select-none w-full justify-center">
           <span class="expand-label inline-flex items-center">
-            Leer más
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            LEER MÁS
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </span>
           <span class="collapse-label inline-flex items-center">
-            Cerrar
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            CERRAR
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
             </svg>
           </span>
         </summary>
-        <div class="mt-4 pt-4 border-t border-slate-700/50 text-slate-300 text-sm leading-relaxed prose prose-invert prose-sm max-w-none">
-          <p set:html={contenido_md.replace(/\n/g, '<br>')} />
+        <div class="mt-4 pt-4 border-t border-slate-800 text-slate-300 text-xs leading-relaxed prose-custom">
+          <div set:html={htmlContenido} />
         </div>
       </details>
     )}
   </div>
 </article>
 
-<style>
+<style is:global>
   details .collapse-label { display: none; }
   details[open] .collapse-label { display: inline-flex; }
   details[open] .expand-label { display: none; }
+
+  /* Custom Prose for Markdown */
+  .prose-custom strong { color: #60a5fa; font-weight: 700; }
+  .prose-custom p { margin-bottom: 0.75rem; }
+  .prose-custom ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+  .prose-custom li { margin-bottom: 0.25rem; }
+  .prose-custom h2 { font-size: 1rem; font-weight: 800; color: white; margin-top: 1rem; margin-bottom: 0.5rem; }
 </style>

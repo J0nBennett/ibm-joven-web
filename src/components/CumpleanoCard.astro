@@ -1,0 +1,23 @@
+---
+interface Props {
+  nombre: string;
+  dia: number;
+  esHoy?: boolean;
+}
+
+const { nombre, dia, esHoy = false } = Astro.props;
+---
+
+<div class={`flex items-center p-4 rounded-xl shadow-sm border transition-all duration-300 group ${esHoy ? 'bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200 scale-105 ring-2 ring-pink-100 shadow-lg' : 'bg-white border-pink-100 hover:shadow-md'}`}>
+  <div class={`p-3 rounded-full mr-4 transition-transform group-hover:scale-110 ${esHoy ? 'bg-pink-500 text-white animate-bounce' : 'bg-pink-100'}`}>
+    <span class="text-2xl">{esHoy ? '🎈' : '🎂'}</span>
+  </div>
+  <div>
+    <h4 class={`font-bold text-lg ${esHoy ? 'text-pink-900' : 'text-gray-800'}`}>
+        {nombre} {esHoy && <span class="text-xs font-black uppercase tracking-widest bg-pink-600 text-white px-2 py-0.5 rounded ml-1">¡Hoy!</span>}
+    </h4>
+    <p class={`${esHoy ? 'text-pink-700' : 'text-pink-600'} font-medium text-sm`}>
+        {esHoy ? '¡Feliz Cumpleaños!' : `Cumple el ${dia}`}
+    </p>
+  </div>
+</div>

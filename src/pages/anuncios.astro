@@ -21,7 +21,8 @@ try {
 
     <div class="grid gap-6 md:grid-cols-2">
       {anuncios.length > 0 ? (
-        anuncios.map(anuncio => (
+        // Sort: Pinned first, then by date descending (already sorted by date in sync script)
+        [...anuncios].sort((a,b) => (b.esFijo ? 1 : 0) - (a.esFijo ? 1 : 0)).map(anuncio => (
           <AnuncioCard
             id={anuncio.id}
             titulo={anuncio.titulo}
@@ -29,6 +30,8 @@ try {
             categoria={anuncio.categoria}
             resumen={anuncio.resumen}
             contenido_md={anuncio.contenido_md}
+            esFijo={anuncio.esFijo}
+            className={anuncio.esFijo ? "md:col-span-2 ring-2 ring-blue-500/20" : ""}
           />
         ))
       ) : (

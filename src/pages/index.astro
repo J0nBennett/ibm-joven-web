@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import AnuncioCard from '../components/AnuncioCard.astro';
 import EventoCard from '../components/EventoCard.astro';
+import CumpleanoCard from '../components/CumpleanoCard.astro';
+import DevocionalCard from '../components/DevocionalCard.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -9,16 +11,20 @@ const base = import.meta.env.BASE_URL;
 
 let anuncios = [];
 let eventos = [];
+let cumpleanos = [];
 
 try {
   const anunciosPath = path.join(process.cwd(), 'public', 'data', 'anuncios.json');
   const eventosPath = path.join(process.cwd(), 'public', 'data', 'eventos.json');
+  const cumpleanosPath = path.join(process.cwd(), 'public', 'data', 'cumpleanos.json');
   
   const anunciosData = await fs.readFile(anunciosPath, 'utf-8');
   const eventosData = await fs.readFile(eventosPath, 'utf-8');
+  const cumpleanosData = await fs.readFile(cumpleanosPath, 'utf-8');
   
   anuncios = JSON.parse(anunciosData);
   eventos = JSON.parse(eventosData);
+  cumpleanos = JSON.parse(cumpleanosData);
 } catch (e) {
   console.error("Error loading data:", e);
   // Fail gracefully or show empty state
@@ -26,10 +32,95 @@ try {
 
 const ultimoAnuncio = anuncios.length > 0 ? anuncios[0] : null;
 const proximosEventos = eventos.slice(0, 3);
+
+// Cumpleaños: Hoy y próximos (este mes y el siguiente)
+const fechaActual = new Date();
+const mesActual = fechaActual.getMonth() + 1;
+const diaActual = fechaActual.getDate();
+const proximoMes = (mesActual % 12) + 1;
+
+const cumpleanosFiltrados = cumpleanos
+  .filter(c => {
+    const cMes = parseInt(c.mes);
+    const cDia = parseInt(c.dia);
+    return (cMes === mesActual && cDia >= diaActual) || (cMes === proximoMes);
+  })
+  .sort((a, b) => {
+    if (parseInt(a.mes) !== parseInt(b.mes)) return parseInt(a.mes) - parseInt(b.mes);
+    return parseInt(a.dia) - parseInt(b.dia);
+  });
+
+const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+// Agrupar por mes
+const cumpleanosPorMes = [];
+if (cumpleanosFiltrados.length > 0) {
+  const mesesRelacionados = [...new Set(cumpleanosFiltrados.map(c => parseInt(c.mes)))];
+  mesesRelacionados.forEach(m => {
+    cumpleanosPorMes.push({
+      nombreMes: nombresMeses[m - 1],
+      items: cumpleanosFiltrados.filter(c => parseInt(c.mes) === m)
+    });
+  });
+}
+
+const nombreMesActual = nombresMeses[mesActual - 1];
+
+// Lógica de Versículo del Día (Simulación de actualización diaria basada en la fecha)
+// Se podría usar una API, pero esto garantiza disponibilidad sin dependencias externas
+const versiculosDiarios = [
+  { cita: "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.", pasaje: "Salmo 119:105" },
+  { cita: "El que no ama, no ha conocido a Dios; porque Dios es amor.", pasaje: "1 Juan 4:8" },
+  { cita: "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.", pasaje: "Jeremías 29:11" },
+  { cita: "Todo lo puedo en Cristo que me fortalece.", pasaje: "Filipenses 4:13" },
+  { cita: "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.", pasaje: "Isaías 41:10" },
+  { cita: "Jehová es mi pastor; nada me faltará.", pasaje: "Salmo 23:1" },
+  { cita: "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.", pasaje: "Romanos 8:28" }
+];
+
+// Seleccionar basado en el día del año (Fallback)
+const diaDelAño = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+let devocionalDia = versiculosDiarios[diaDelAño % versiculosDiarios.length];
+
+// Intentar obtener el devocional real de La Buena Semilla (Scraping)
+try {
+  const response = await fetch('https://www.labuenasemilla.net/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
+    signal: AbortSignal.timeout(5000)
+  });
+  
+  if (response.ok) {
+    const html = await response.text();
+    
+    // Método 1: Buscar por clases específicas (más fiable)
+    const textMatch = html.match(/<div class="verset-texte">([^<]+)<\/div>/);
+    const refMatch = html.match(/<div class="verset-reference">([^<]+)<\/div>/);
+    
+    if (textMatch && refMatch) {
+      devocionalDia = {
+        cita: textMatch[1].trim(),
+        pasaje: refMatch[1].trim()
+      };
+    } else {
+      // Método 2: Buscar el versículo con comillas y span (Lucas 5:12-13 style)
+      const quoteMatch = html.match(/“([^”]+)”/);
+      const spanRefMatch = html.match(/<span class="ref">\(([^)]+)\)<\/span>/);
+      
+      if (quoteMatch && spanRefMatch) {
+        devocionalDia = {
+          cita: quoteMatch[1].trim(),
+          pasaje: spanRefMatch[1].trim()
+        };
+      }
+    }
+  }
+} catch (e) {
+  console.log("Error al scrapear La Buena Semilla, usando respaldo.");
+}
 ---
 
 <Layout title="IBM Joven - Inicio" description="Bienvenido a IBM Joven, el ministerio de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Fe, servicio y amistad.">
-  <section class="mb-12 text-center py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white rounded-2xl shadow-2xl relative overflow-hidden">
+  <section class="mb-12 text-center py-8 sm:py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white rounded-2xl shadow-2xl relative overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"></div> <!-- Optional texture placeholder -->
     <div class="relative z-10">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
@@ -38,11 +129,20 @@ const proximosEventos = eventos.slice(0, 3);
         <p class="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-10 font-light">
             Comunidad de jóvenes de la Iglesia Bautista Maranata basada en la fe, el servicio y la amistad.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href={`${base}nosotros`} class="bg-white text-slate-900 hover:bg-blue-50 px-8 py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+        
+        <!-- Devocional del Día -->
+        <div class="max-w-2xl mx-auto mb-8 sm:mb-12 transform hover:scale-[1.01] transition-transform">
+          <DevocionalCard 
+            cita={devocionalDia.cita} 
+            pasaje={devocionalDia.pasaje} 
+          />
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0">
+            <a href={`${base}nosotros`} class="bg-white text-slate-900 hover:bg-blue-50 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base">
                 Conócenos
             </a>
-            <a href={`${base}contacto`} class="bg-blue-600 text-white hover:bg-blue-500 px-8 py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl border border-blue-500 transform hover:-translate-y-1">
+            <a href={`${base}contacto`} class="bg-blue-600 text-white hover:bg-blue-500 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl border border-blue-500 transform hover:-translate-y-1 text-sm sm:text-base">
                 Contactanos
             </a>
         </div>
@@ -51,7 +151,7 @@ const proximosEventos = eventos.slice(0, 3);
 
   <div class="grid lg:grid-cols-2 gap-12 mb-24 pb-12">
     <!-- Section: Ultimo Anuncio -->
-    <section>
+    <section class="mb-8 lg:mb-0">
       <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-500 pl-3">Último Anuncio</h2>
           <a href={`${base}anuncios`} class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver todos &rarr;</a>
@@ -101,4 +201,33 @@ const proximosEventos = eventos.slice(0, 3);
       </div>
     </section>
   </div>
+
+  <!-- Section: Cumpleaños del Mes -->
+  {cumpleanosPorMes.length > 0 && (
+    <section class="mb-24 px-4 sm:px-0">
+      <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-pink-500 pl-3">Próximos Cumpleaños</h2>
+          <span class="text-pink-600">🎉</span>
+      </div>
+      
+      <div class="space-y-12">
+        {cumpleanosPorMes.map(grupo => (
+          <div>
+            <h3 class="text-xl font-bold text-pink-700 mb-6 flex items-center">
+              <span class="bg-pink-100 px-4 py-1 rounded-lg">{grupo.nombreMes}</span>
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {grupo.items.map(cumple => (
+                <CumpleanoCard 
+                  nombre={cumple.nombre} 
+                  dia={parseInt(cumple.dia)} 
+                  esHoy={parseInt(cumple.dia) === diaActual && parseInt(cumple.mes) === mesActual} 
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 </Layout>

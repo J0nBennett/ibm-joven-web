@@ -1,0 +1,65 @@
+---
+interface Props {
+  cita: string;
+  pasaje: string;
+  texto_meditacion?: string;
+}
+
+const { cita, pasaje, texto_meditacion } = Astro.props;
+const hoy = new Date().toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<div class="relative overflow-hidden bg-white rounded-2xl shadow-xl border border-amber-100 group transition-all duration-500 hover:shadow-2xl">
+  <!-- Decorative Background Leaf/Seed -->
+  <div class="absolute -right-10 -bottom-10 opacity-5 group-hover:opacity-10 transition-opacity duration-700">
+    <svg width="200" height="200" viewBox="0 0 24 24" fill="currentColor" class="text-amber-900">
+      <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
+    </svg>
+  </div>
+
+  <div class="p-4 sm:p-8 relative z-10">
+    <div class="flex flex-row items-center justify-between gap-2 mb-3 sm:mb-8">
+      <div>
+        <span class="inline-block px-3 py-1 text-xs font-black uppercase tracking-widest text-amber-700 bg-amber-50 rounded-full mb-2">
+          La Buena Semilla
+        </span>
+        <h3 class="text-sm font-medium text-slate-500 capitalize">{hoy}</h3>
+      </div>
+      <div class="flex">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-amber-600 font-bold shadow-sm text-sm sm:text-base">📖</div>
+      </div>
+    </div>
+
+    <blockquote class="relative">
+      <svg class="absolute -top-1 -left-2 h-6 w-6 sm:h-10 sm:w-10 text-amber-100 transform -rotate-12" fill="currentColor" viewBox="0 0 32 32">
+        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+      </svg>
+      <p class="text-sm sm:text-xl font-serif text-slate-800 leading-relaxed italic relative z-10">
+        "{cita}"
+      </p>
+      <cite class="mt-2 block text-xs sm:text-base font-bold text-amber-700 not-italic">
+        — {pasaje}
+      </cite>
+    </blockquote>
+
+    <div class="mt-8 flex justify-end">
+      <a 
+        href="https://www.labuenasemilla.net/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="text-xs font-bold text-slate-400 hover:text-amber-600 transition-colors uppercase tracking-widest flex items-center"
+      >
+        Leer meditación completa
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  blockquote p {
+    text-wrap: balance;
+  }
+</style>
