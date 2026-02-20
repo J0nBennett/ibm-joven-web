@@ -1,31 +1,33 @@
 ---
 import Logo from './Logo.astro';
+
+const links = [
+    { name: 'Inicio', path: '/' },
+    { name: 'Anuncios', path: '/anuncios' },
+    { name: 'Eventos', path: '/eventos' },
+    { name: 'Galería', path: '/galeria' },
+    { name: 'Nosotros', path: '/nosotros' },
+    { name: 'Contacto', path: '/contacto' },
+];
 ---
 <nav class="sticky top-0 z-50 bg-slate-900 text-white shadow-lg backdrop-blur-md bg-opacity-95">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <a href="/" class="hover:text-blue-200 transition">
             <Logo />
         </a>
-        
+
         <!-- Desktop Menu -->
-        <ul class="flex space-x-2 hidden md:flex">
+        <ul class="hidden md:flex space-x-2">
             {
-                [
-                    { name: 'Inicio', path: '/' },
-                    { name: 'Anuncios', path: '/anuncios' },
-                    { name: 'Eventos', path: '/eventos' },
-                    { name: 'Galería', path: '/galeria' },
-                    { name: 'Nosotros', path: '/nosotros' },
-                    { name: 'Contacto', path: '/contacto' },
-                ].map(link => {
+                links.map(link => {
                     const isActive = Astro.url.pathname === link.path || (link.path !== '/' && Astro.url.pathname.startsWith(link.path));
                     return (
                         <li>
-                            <a 
-                                href={link.path} 
+                            <a
+                                href={link.path}
                                 class={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-                                    isActive 
-                                    ? 'bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)]' 
+                                    isActive
+                                    ? 'bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)]'
                                     : 'hover:bg-white/5 hover:text-blue-200 text-slate-300'
                                 }`}
                             >
@@ -37,9 +39,71 @@ import Logo from './Logo.astro';
             }
         </ul>
 
-        <!-- Mobile Menu Button (Hamburger) - Implementation required JS for toggle, keeping simple for now -->
-        <div class="md:hidden">
-            <a href="/anuncios" class="text-sm font-semibold bg-slate-800 py-2 px-3 rounded hover:bg-slate-700 transition">Menú</a>
-        </div>
+        <!-- Mobile Hamburger Button -->
+        <button
+            id="mobile-menu-btn"
+            class="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+        >
+            <span class="hamburger-bar block w-5 h-0.5 bg-white transition-all duration-300"></span>
+            <span class="hamburger-bar block w-5 h-0.5 bg-white my-1 transition-all duration-300"></span>
+            <span class="hamburger-bar block w-5 h-0.5 bg-white transition-all duration-300"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div
+        id="mobile-menu"
+        class="md:hidden hidden border-t border-slate-700/50"
+    >
+        <ul class="container mx-auto px-4 py-3 flex flex-col gap-1">
+            {
+                links.map(link => {
+                    const isActive = Astro.url.pathname === link.path || (link.path !== '/' && Astro.url.pathname.startsWith(link.path));
+                    return (
+                        <li>
+                            <a
+                                href={link.path}
+                                class={`block px-4 py-3 rounded-lg transition-all duration-200 font-medium ${
+                                    isActive
+                                    ? 'bg-white/10 border border-white/20 text-white'
+                                    : 'hover:bg-white/5 hover:text-blue-200 text-slate-300'
+                                }`}
+                            >
+                                {link.name}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
     </div>
 </nav>
+
+<style>
+    .hamburger-open .hamburger-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .hamburger-open .hamburger-bar:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    .hamburger-open .hamburger-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+</style>
+
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn?.addEventListener('click', () => {
+        const isOpen = !menu?.classList.contains('hidden');
+        menu?.classList.toggle('hidden', isOpen);
+        btn.classList.toggle('hamburger-open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        btn.setAttribute('aria-label', isOpen ? 'Abrir menú' : 'Cerrar menú');
+    });
+</script>

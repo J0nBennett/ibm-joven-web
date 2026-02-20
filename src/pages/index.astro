@@ -28,7 +28,7 @@ const ultimoAnuncio = anuncios.length > 0 ? anuncios[0] : null;
 const proximosEventos = eventos.slice(0, 3);
 ---
 
-<Layout title="IBM Joven - Inicio">
+<Layout title="IBM Joven - Inicio" description="Bienvenido a IBM Joven, el ministerio de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Fe, servicio y amistad.">
   <section class="mb-12 text-center py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white rounded-2xl shadow-2xl relative overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"></div> <!-- Optional texture placeholder -->
     <div class="relative z-10">
@@ -58,12 +58,13 @@ const proximosEventos = eventos.slice(0, 3);
       </div>
       
       {ultimoAnuncio ? (
-        <AnuncioCard 
+        <AnuncioCard
           id={ultimoAnuncio.id}
           titulo={ultimoAnuncio.titulo}
           fecha={ultimoAnuncio.fecha}
           categoria={ultimoAnuncio.categoria}
           resumen={ultimoAnuncio.resumen}
+          contenido_md={ultimoAnuncio.contenido_md}
           className="h-full border-l-4 border-l-blue-500"
         />
       ) : (

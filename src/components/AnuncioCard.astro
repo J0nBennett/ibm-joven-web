@@ -5,14 +5,17 @@ interface Props {
   fecha: string;
   categoria: string;
   resumen: string;
+  contenido_md?: string;
   className?: string;
 }
 
-const { id, titulo, fecha, categoria, resumen, className = "" } = Astro.props;
+const { id, titulo, fecha, categoria, resumen, contenido_md = "", className = "" } = Astro.props;
 
 // Formatear fecha (avoiding timezone shifts by setting noon)
 const fechaObj = new Date(fecha + 'T12:00:00');
 const fechaFormateada = fechaObj.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const tieneContenido = contenido_md.trim().length > 0;
 ---
 
 <article class={`flex flex-col h-full bg-gradient-to-br from-slate-900 to-blue-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-700/50 ${className}`}>
@@ -23,23 +26,35 @@ const fechaFormateada = fechaObj.toLocaleDateString('es-AR', { year: 'numeric', 
       </span>
       <span class="text-xs text-slate-400 font-medium whitespace-nowrap">Publicado el: <br class="sm:hidden" />{fechaFormateada}</span>
     </div>
-    
+
     <h3 class="text-2xl font-bold text-white mb-3 tracking-tight leading-tight line-clamp-2" title={titulo}>
       {titulo}
     </h3>
-    
-    <p class="text-slate-300 line-clamp-3 leading-relaxed mb-6">
+
+    <p class="text-slate-300 leading-relaxed mb-4">
       {resumen}
     </p>
-    
-    <div class="mt-auto flex justify-end w-full">
-      <!-- Future: Link to detail page -->
-       <span class="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors cursor-pointer group bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700 hover:border-blue-500/50">
-          Leer más 
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-       </span>
-    </div>
+
+    {tieneContenido && (
+      <details class="mt-auto group">
+        <summary class="mt-2 inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors cursor-pointer bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700 hover:border-blue-500/50 list-none select-none">
+          <span class="group-open:hidden inline-flex items-center">
+            Leer más
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+          <span class="hidden group-open:inline-flex items-center">
+            Cerrar
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-4 pt-4 border-t border-slate-700/50 text-slate-300 text-sm leading-relaxed prose prose-invert prose-sm max-w-none">
+          <p set:html={contenido_md.replace(/\n/g, '<br>')} />
+        </div>
+      </details>
+    )}
   </div>
 </article>
