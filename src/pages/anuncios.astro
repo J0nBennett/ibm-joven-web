@@ -15,19 +15,20 @@ try {
 }
 ---
 
-<Layout title="Anuncios - IBM Joven">
+<Layout title="Anuncios - IBM Joven" description="Últimas novedades y anuncios del ministerio de jóvenes IBM Joven de la Iglesia Bautista Maranata.">
   <section class="max-w-4xl mx-auto">
     <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Anuncios y Novedades</h1>
 
     <div class="grid gap-6 md:grid-cols-2">
       {anuncios.length > 0 ? (
         anuncios.map(anuncio => (
-          <AnuncioCard 
+          <AnuncioCard
             id={anuncio.id}
             titulo={anuncio.titulo}
             fecha={anuncio.fecha}
             categoria={anuncio.categoria}
             resumen={anuncio.resumen}
+            contenido_md={anuncio.contenido_md}
           />
         ))
       ) : (
