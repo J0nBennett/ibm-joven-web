@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Claude AI
+.claude/
+
+# Temporary debug files
+scripts/debug_scraper.mjs
+temp_lbs.html
