@@ -5,13 +5,14 @@ interface Props {
 	image?: string;
 }
 
+const base = import.meta.env.BASE_URL;
 const {
 	title,
 	description = 'IBM Joven — Comunidad de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Fe, servicio y amistad.',
-	image = '/logo.svg',
+	image = `${base}logo.svg`,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ibmjoven.github.io');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://J0nBennett.github.io');
 const ogImage = new URL(image, canonicalURL);
 
 import Navigation from '../components/Navigation.astro';
@@ -52,7 +53,7 @@ import '../styles/global.css';
 		<meta name="twitter:image" content={ogImage} />
 
 		<!-- Favicon -->
-		<link rel="icon" type="image/svg+xml" href="/favicon_cross.svg" />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon_cross.svg`} />
 	</head>
 	<body class="bg-gray-50 flex flex-col min-h-screen font-sans">
 		<Navigation />

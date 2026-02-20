@@ -1,18 +1,19 @@
 ---
 import Logo from './Logo.astro';
 
+const base = import.meta.env.BASE_URL;
 const links = [
-    { name: 'Inicio', path: '/' },
-    { name: 'Anuncios', path: '/anuncios' },
-    { name: 'Eventos', path: '/eventos' },
-    { name: 'Galería', path: '/galeria' },
-    { name: 'Nosotros', path: '/nosotros' },
-    { name: 'Contacto', path: '/contacto' },
+    { name: 'Inicio', path: base },
+    { name: 'Anuncios', path: `${base}anuncios` },
+    { name: 'Eventos', path: `${base}eventos` },
+    { name: 'Galería', path: `${base}galeria` },
+    { name: 'Nosotros', path: `${base}nosotros` },
+    { name: 'Contacto', path: `${base}contacto` },
 ];
 ---
 <nav class="sticky top-0 z-50 bg-slate-900 text-white shadow-lg backdrop-blur-md bg-opacity-95">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="/" class="hover:text-blue-200 transition">
+        <a href={base} class="hover:text-blue-200 transition">
             <Logo />
         </a>
 
@@ -20,7 +21,7 @@ const links = [
         <ul class="hidden md:flex space-x-2">
             {
                 links.map(link => {
-                    const isActive = Astro.url.pathname === link.path || (link.path !== '/' && Astro.url.pathname.startsWith(link.path));
+                    const isActive = Astro.url.pathname === link.path || Astro.url.pathname === link.path + '/' || (link.path !== base && Astro.url.pathname.startsWith(link.path));
                     return (
                         <li>
                             <a
@@ -61,7 +62,7 @@ const links = [
         <ul class="container mx-auto px-4 py-3 flex flex-col gap-1">
             {
                 links.map(link => {
-                    const isActive = Astro.url.pathname === link.path || (link.path !== '/' && Astro.url.pathname.startsWith(link.path));
+                    const isActive = Astro.url.pathname === link.path || Astro.url.pathname === link.path + '/' || (link.path !== base && Astro.url.pathname.startsWith(link.path));
                     return (
                         <li>
                             <a
