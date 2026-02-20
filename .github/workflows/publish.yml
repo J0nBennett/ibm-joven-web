@@ -1,5 +1,7 @@
 name: Sync Content
 
+# Cloudflare Pages conectado al repo hace el build y deploy automáticamente
+# en cada push a main. Este workflow solo sincroniza datos de Google Sheets → JSON.
 # Con Cloudflare Pages conectado al repo, cada push a main dispara
 # un rebuild automático en Cloudflare. Este workflow solo se encarga
 # de sincronizar los datos de Google Sheets → JSON y hacer el commit.
