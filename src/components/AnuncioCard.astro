@@ -36,15 +36,15 @@ const tieneContenido = contenido_md.trim().length > 0;
     </p>
 
     {tieneContenido && (
-      <details class="mt-auto group">
+      <details class="mt-auto">
         <summary class="mt-2 inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors cursor-pointer bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700 hover:border-blue-500/50 list-none select-none">
-          <span class="group-open:hidden inline-flex items-center">
+          <span class="expand-label inline-flex items-center">
             Leer más
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </span>
-          <span class="hidden group-open:inline-flex items-center">
+          <span class="collapse-label inline-flex items-center">
             Cerrar
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
@@ -58,3 +58,9 @@ const tieneContenido = contenido_md.trim().length > 0;
     )}
   </div>
 </article>
+
+<style>
+  details .collapse-label { display: none; }
+  details[open] .collapse-label { display: inline-flex; }
+  details[open] .expand-label { display: none; }
+</style>
