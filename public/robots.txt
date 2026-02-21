@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ibm-joven-web.jonbennettpy.workers.dev/sitemap-index.xml

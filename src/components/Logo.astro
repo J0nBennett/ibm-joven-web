@@ -4,31 +4,27 @@ interface Props {
   color?: string; // e.g. "text-white", "text-blue-500"
 }
 
-const { className = "h-8 w-auto", color = "currentColor" } = Astro.props;
+const { className = "h-8 w-auto", color = "text-white" } = Astro.props;
 ---
 
 <div class={`flex items-center gap-3 ${color} ${className}`}>
-  <!-- Logo: 3 Triangles forming a Trinity 'M' -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" class="h-10 w-10 overflow-visible">
-      <defs>
-        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="2" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
+  <!-- Logo: 3 Triangles forming a Trinity 'M' inside a circle -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-10 w-10 overflow-visible">
+      <!-- Background Circle -->
+      <circle cx="50" cy="50" r="48" fill="#3269b3" />
       
-      <!-- Triangle 1: Left Pillar (Blue-300) -->
-      <path d="M10 90 L35 20 L60 90 Z" class="text-blue-300" fill="currentColor" opacity="0.9" />
+      <!-- Triangle 1: Left Pillar -->
+      <path d="M22 68 L48 68 L35 42 Z" fill="white" />
       
-      <!-- Triangle 2: Right Pillar (White/Blue-100) -->
-      <path d="M40 90 L65 20 L90 90 Z" class="text-blue-100" fill="currentColor" opacity="0.8" />
+      <!-- Triangle 2: Right Pillar -->
+      <path d="M52 68 L78 68 L65 42 Z" fill="white" />
       
-      <!-- Triangle 3: Center Inverted (Deep Blue/Accent) - Connects them to form the M valley -->
-      <path d="M35 35 L50 80 L65 35 Z" class="text-blue-500" fill="currentColor" />
+      <!-- Triangle 3: Center Inverted -->
+      <path d="M35 30 L65 30 L50 56 Z" fill="white" />
   </svg>
   
   <span class="font-extrabold tracking-tight text-xl leading-none flex flex-col items-start justify-center">
-    <span>IBM</span>
-    <span class="font-light text-sm tracking-widest opacity-90">JOVEN</span>
+    <span class="text-inherit">IBM</span>
+    <span class="font-light text-sm tracking-widest opacity-80 text-inherit/70">JOVEN</span>
   </span>
 </div>

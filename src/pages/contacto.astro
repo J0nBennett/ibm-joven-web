@@ -1,8 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const schemaChurch = {
+  "@context": "https://schema.org",
+  "@type": "Church",
+  "name": "IBM Joven – Iglesia Bautista Maranata Jóvenes",
+  "alternateName": "IBM Joven",
+  "url": "https://ibm-joven-web.jonbennettpy.workers.dev",
+  "telephone": "+595992435330",
+  "email": "ibmjoven@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Juan de Mena Esq. Santander",
+    "addressLocality": "Luque",
+    "addressRegion": "Barrio Palma Loma",
+    "addressCountry": "PY"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -25.2691,
+    "longitude": -57.4930
+  },
+  "openingHours": ["Sa 19:30-21:00", "Su 08:30-12:00", "Su 18:00-19:30"],
+  "sameAs": [
+    "https://instagram.com/ibmjoven",
+    "https://facebook.com/ibmjoven"
+  ]
+};
 ---
 
-<Layout title="Contacto - IBM Joven" description="Contactanos por WhatsApp, email o visitanos en Santander, Luque, Paraguay. Estamos aquí para escucharte.">
+<Layout title="Contacto | IBM Joven – Iglesia Bautista Maranata, Luque, barrio palma loma. Juan de Mena Esq. Santander, Paraguay" description="Contactanos por WhatsApp al +595 992 435 330 o visitanos en Luque, barrio palma loma. Juan de Mena Esq. Santander, Paraguay. Somos el grupo juvenil de la Iglesia Bautista Maranata.">
+  <script type="application/ld+json" set:html={JSON.stringify(schemaChurch)} />
     <section class="max-w-5xl mx-auto">
         <div class="text-center mb-12">
             <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6">Contáctanos</h1>
@@ -61,7 +89,7 @@ import Layout from '../layouts/Layout.astro';
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg text-white mb-0.5">Ubicación</h3>
-                                <p class="text-slate-300 text-sm mb-2">Santander, Luque 110935</p>
+                                <p class="text-slate-300 text-sm mb-2">Luque, barrio palma loma. Juan de Mena Esq. Santander</p>
                                 <a href="https://maps.google.com/?q=Iglesia+Bautista+Maranata+Luque" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-purple-400 hover:text-purple-300 hover:underline">
                                     Abrir en Maps →
                                 </a>
@@ -90,7 +118,7 @@ import Layout from '../layouts/Layout.astro';
                             <span class="text-xs text-slate-400">@ibmjoven</span>
                         </a>
                         <!-- Facebook -->
-                        <a href="https://facebook.com/ibmjoven" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
+                        <a href="https://www.facebook.com/profile.php?id=100085043532153" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
                             <div class="w-12 h-12 mb-3 rounded-full bg-[#1877F2] flex items-center justify-center text-white shadow-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
