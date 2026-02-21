@@ -23,7 +23,9 @@ const hoy = new Date().toLocaleDateString('es-AR', { weekday: 'long', year: 'num
         <span class="inline-block px-3 py-1 text-xs font-black uppercase tracking-widest text-amber-700 bg-amber-50 rounded-full mb-2">
           La Buena Semilla
         </span>
-        <h3 class="text-sm font-medium text-slate-500 capitalize">{hoy}</h3>
+        <h3 class="text-sm font-medium text-slate-500 capitalize">
+          <span id="devocional-fecha">{hoy}</span>
+        </h3>
       </div>
       <div class="flex">
         <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-amber-600 font-bold shadow-sm text-sm sm:text-base">📖</div>
@@ -35,10 +37,10 @@ const hoy = new Date().toLocaleDateString('es-AR', { weekday: 'long', year: 'num
         <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
       </svg>
       <p class="text-sm sm:text-xl font-serif text-slate-800 leading-relaxed italic relative z-10">
-        "{cita}"
+        "<span id="devocional-cita">{cita}</span>"
       </p>
       <cite class="mt-2 block text-xs sm:text-base font-bold text-amber-700 not-italic">
-        — {pasaje}
+        — <span id="devocional-pasaje">{pasaje}</span>
       </cite>
     </blockquote>
 

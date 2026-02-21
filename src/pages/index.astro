@@ -127,7 +127,7 @@ try {
             Bienvenido a <span class="text-blue-400">IBM Joven</span>
         </h1>
         <p class="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-10 font-light">
-            Comunidad de jóvenes de la Iglesia Bautista Maranata basada en la fe, el servicio y la amistad.
+            Comunidad de jóvenes en Luque, Paraguay.
         </p>
         
         <!-- Devocional del Día -->
@@ -146,6 +146,10 @@ try {
                 Contactanos
             </a>
         </div>
+        
+        <p class="text-sm text-slate-400 mt-12 font-medium opacity-80">
+            Ministerio de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Fe, servicio y amistad.
+        </p>
     </div>
   </section>
 
@@ -202,21 +206,7 @@ try {
     </section>
   </div>
 
-  <!-- Section: Cumpleaños del Mes -->
-  <!-- SEO: bloque de texto estático con keywords locales — visible para Google -->
-  <section class="max-w-3xl mx-auto text-center py-10 px-4 mb-16">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-      Jóvenes cristianos en Luque, Paraguay
-    </h2>
-    <p class="text-gray-600 leading-relaxed">
-      IBM Joven es el ministerio juvenil de la <strong>Iglesia Bautista Maranata</strong> en
-      Luque, Paraguay. Somos una comunidad de <strong>jóvenes cristianos</strong> que se reúne
-      cada semana para crecer en la fe, servir a otros y construir amistades que duran.
-      Si buscás un <strong>grupo de jóvenes en Luque</strong> donde encontrar propósito y
-      comunidad, te invitamos a conocernos. Nos reunimos todos los
-      <strong>sábados a las 19:30 hs</strong> en Santander, Luque 110935, Paraguay.
-    </p>
-  </section>
+
 
   {cumpleanosPorMes.length > 0 && (
     <section class="mb-24 px-4 sm:px-0">
@@ -245,4 +235,60 @@ try {
       </div>
     </section>
   )}
+
+  <!-- SEO: bloque de texto estático con keywords locales — visible para Google -->
+  <section class="max-w-3xl mx-auto text-center py-10 px-4 mb-16 border-t border-gray-100 mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+      Jóvenes cristianos en Luque, Paraguay
+    </h2>
+    <p class="text-gray-600 leading-relaxed">
+      IBM Joven es el ministerio juvenil de la <strong>Iglesia Bautista Maranata</strong> en
+      Luque, Paraguay. Somos una comunidad de <strong>jóvenes cristianos</strong> que se reúne
+      cada semana para crecer en la fe, servir a otros y construir amistades que duran.
+      Si buscás un <strong>grupo de jóvenes en Luque</strong> donde encontrar propósito y
+      comunidad, te invitamos a conocernos. Nos reunimos todos los
+      <strong>sábados a las 19:30 hs</strong> en Luque, barrio palma loma. Juan de Mena Esq. Santander.
+    </p>
+  </section>
+
+  <script>
+    // Versículos de respaldo (Deben coincidir con los del servidor para evitar saltos)
+    const versiculos = [
+      { cita: "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.", pasaje: "Salmo 119:105" },
+      { cita: "El que no ama, no ha conocido a Dios; porque Dios es amor.", pasaje: "1 Juan 4:8" },
+      { cita: "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.", pasaje: "Jeremías 29:11" },
+      { cita: "Todo lo puedo en Cristo que me fortalece.", pasaje: "Filipenses 4:13" },
+      { cita: "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.", pasaje: "Isaías 41:10" },
+      { cita: "Jehová es mi pastor; nada me faltará.", pasaje: "Salmo 23:1" },
+      { cita: "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.", pasaje: "Romanos 8:28" }
+    ];
+
+    function actualizarVersiculo() {
+      const hoy = new Date();
+      const hoyTexto = hoy.toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      
+      const fechaElement = document.getElementById('devocional-fecha');
+      if (!fechaElement) return;
+
+      // Si la fecha ya es la de hoy, no hacemos nada para evitar parpadeos
+      if (fechaElement.textContent.toLowerCase() === hoyTexto.toLowerCase()) {
+        return;
+      }
+
+      // Si la fecha es distinta (build viejo), actualizamos al menos con el fallback de hoy
+      fechaElement.textContent = hoyTexto;
+      
+      const diaDelAnio = Math.floor((hoy - new Date(hoy.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+      const v = versiculos[diaDelAnio % versiculos.length];
+      
+      const citaElem = document.getElementById('devocional-cita');
+      const pasajeElem = document.getElementById('devocional-pasaje');
+      
+      if (citaElem) citaElem.textContent = v.cita;
+      if (pasajeElem) pasajeElem.textContent = v.pasaje;
+    }
+
+    // Ejecutar al cargar
+    actualizarVersiculo();
+  </script>
 </Layout>
