@@ -7,6 +7,13 @@
     "estado": "PUBLISH"
   },
   {
+    "id": "GAL-002",
+    "titulo": "Corrida Primavera 2023",
+    "url_album": "https://drive.google.com/drive/folders/163GxHdEH_o4OB0QdPOq3hmjURmvKevxS?usp=drive_link",
+    "foto_portada": "https://loremflickr.com/800/600/flash,running/all",
+    "estado": "PUBLISH"
+  },
+  {
     "id": "GAL-003",
     "titulo": "Retiro Cambyreta 2023",
     "url_album": "https://drive.google.com/drive/folders/1IrxnqSOepinY7w_ORJmXH-de_ExwCSBp?usp=drive_link",
