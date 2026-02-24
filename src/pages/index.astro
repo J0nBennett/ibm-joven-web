@@ -4,6 +4,8 @@ import AnuncioCard from '../components/AnuncioCard.astro';
 import EventoCard from '../components/EventoCard.astro';
 import CumpleanoCard from '../components/CumpleanoCard.astro';
 import DevocionalCard from '../components/DevocionalCard.astro';
+import Countdown from '../components/Countdown.astro';
+import BibleQuiz from '../components/BibleQuiz.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -120,14 +122,18 @@ try {
 ---
 
 <Layout title="IBM Joven | Ministerio de Jóvenes Iglesia Bautista Maranata – Luque, Paraguay" description="Somos IBM Joven, el grupo de jóvenes de la Iglesia Bautista Maranata en Luque, Paraguay. Reuniones los sábados 19:30 hs, eventos y comunidad cristiana juvenil. ¡Súmate!">
-  <section class="mb-12 text-center py-8 sm:py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white rounded-2xl shadow-2xl relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"></div> <!-- Optional texture placeholder -->
+  <section class="mb-12 text-center py-8 sm:py-16 mesh-gradient-vibrant text-white rounded-2xl shadow-2xl relative overflow-hidden border border-white/5">
+    <div class="absolute inset-0 opacity-20 bg-[url('/grid.svg')]"></div>
     <div class="relative z-10">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
-            Bienvenido a <span class="text-blue-400">IBM Joven</span>
+        <div class="flex flex-col items-center mb-10">
+          <Countdown />
+        </div>
+
+        <h1 class="text-4xl md:text-7xl font-black mb-6 tracking-tight leading-tight">
+            BIENVENIDO A <span class="text-brand-vibrant text-glow">IBM JOVEN</span>
         </h1>
-        <p class="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-10 font-light">
-            Comunidad de jóvenes en Luque, Paraguay.
+        <p class="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-10 font-medium opacity-90">
+            Tu comunidad de jóvenes en Luque, Paraguay.
         </p>
         
         <!-- Devocional del Día -->
@@ -139,10 +145,13 @@ try {
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0">
-            <a href={`${base}nosotros`} class="bg-white text-slate-900 hover:bg-blue-50 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base">
+            <a href={`${base}nosotros`} class="bg-white text-slate-900 hover:bg-brand-vibrant hover:text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-black uppercase tracking-wider transition shadow-lg hover:shadow-brand-vibrant/30 flex items-center justify-center gap-2 group text-sm sm:text-base">
                 Conócenos
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
             </a>
-            <a href={`${base}contacto`} class="bg-blue-600 text-white hover:bg-blue-500 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold transition shadow-lg hover:shadow-xl border border-blue-500 transform hover:-translate-y-1 text-sm sm:text-base">
+            <a href={`${base}contacto`} class="bg-slate-900/50 backdrop-blur-md text-white hover:bg-slate-800 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-black uppercase tracking-wider transition shadow-lg border border-white/10 hover:border-brand-vibrant/50 flex items-center justify-center text-sm sm:text-base">
                 Contactanos
             </a>
         </div>
@@ -157,8 +166,8 @@ try {
     <!-- Section: Ultimo Anuncio -->
     <section class="mb-8 lg:mb-0">
       <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-500 pl-3">Último Anuncio</h2>
-          <a href={`${base}anuncios`} class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver todos &rarr;</a>
+          <h2 class="text-2xl font-black text-white border-l-4 border-blue-500 pl-3">Último Anuncio</h2>
+          <a href={`${base}anuncios`} class="text-blue-400 hover:text-blue-300 text-sm font-medium">Ver todos &rarr;</a>
       </div>
       
       {ultimoAnuncio ? (
@@ -169,11 +178,11 @@ try {
           categoria={ultimoAnuncio.categoria}
           resumen={ultimoAnuncio.resumen}
           contenido_md={ultimoAnuncio.contenido_md}
-          className="h-full border-l-4 border-l-blue-500"
+          className="h-full border-l-4 border-l-blue-500 shadow-blue-500/10"
         />
       ) : (
-        <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 text-center">
-            <p class="text-gray-500 italic">No hay anuncios destacados por el momento.</p>
+        <div class="glass-card p-8 rounded-xl border border-white/5 text-center">
+            <p class="text-slate-500 italic">No hay anuncios destacados por el momento.</p>
         </div>
       )}
     </section>
@@ -181,8 +190,8 @@ try {
     <!-- Section: Proximos Eventos -->
     <section>
       <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-green-500 pl-3">Próximos Eventos</h2>
-          <a href={`${base}eventos`} class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ver calendario &rarr;</a>
+          <h2 class="text-2xl font-black text-white border-l-4 border-brand-success pl-3">Próximos Eventos</h2>
+          <a href={`${base}eventos`} class="text-blue-400 hover:text-blue-300 text-sm font-medium">Ver calendario &rarr;</a>
       </div>
 
       <div class="space-y-4">
@@ -195,31 +204,35 @@ try {
               hora={evento.hora}
               lugar={evento.lugar}
               descripcion_md={evento.descripcion_md}
+              className="border-l-4 border-l-brand-success shadow-brand-success/10"
             />
           ))
         ) : (
-             <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 text-center">
-                <p class="text-gray-500 italic">No hay próximos eventos cargados.</p>
+             <div class="glass-card p-8 rounded-xl border border-white/5 text-center">
+                <p class="text-slate-500 italic">No hay próximos eventos cargados.</p>
             </div>
         )}
       </div>
     </section>
   </div>
 
+  <BibleQuiz />
+
+
 
 
   {cumpleanosPorMes.length > 0 && (
     <section class="mb-24 px-4 sm:px-0">
       <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-pink-500 pl-3">Próximos Cumpleaños</h2>
-          <span class="text-pink-600">🎉</span>
+          <h2 class="text-2xl font-black text-white border-l-4 border-pink-500 pl-3">Próximos Cumpleaños</h2>
+          <span class="text-pink-600 animate-bounce">🎉</span>
       </div>
       
       <div class="space-y-12">
         {cumpleanosPorMes.map(grupo => (
           <div>
-            <h3 class="text-xl font-bold text-pink-700 mb-6 flex items-center">
-              <span class="bg-pink-100 px-4 py-1 rounded-lg">{grupo.nombreMes}</span>
+            <h3 class="text-xl font-black text-pink-500 mb-6 flex items-center">
+              <span class="bg-pink-900/30 px-4 py-1.5 rounded-xl border border-pink-500/20 shadow-sm">{grupo.nombreMes}</span>
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {grupo.items.map(cumple => (
@@ -236,12 +249,13 @@ try {
     </section>
   )}
 
+
   <!-- SEO: bloque de texto estático con keywords locales — visible para Google -->
-  <section class="max-w-3xl mx-auto text-center py-10 px-4 mb-16 border-t border-gray-100 mt-12">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-      Jóvenes cristianos en Luque, Paraguay
+  <section class="max-w-3xl mx-auto text-center py-10 px-4 mb-16 border-t border-white/5 mt-12">
+    <h2 class="text-2xl font-black text-white mb-4 tracking-tight">
+      Jóvenes cristianos en <span class="text-brand-vibrant">Luque, Paraguay</span>
     </h2>
-    <p class="text-gray-600 leading-relaxed">
+    <p class="text-slate-400 leading-relaxed font-medium">
       IBM Joven es el ministerio juvenil de la <strong>Iglesia Bautista Maranata</strong> en
       Luque, Paraguay. Somos una comunidad de <strong>jóvenes cristianos</strong> que se reúne
       cada semana para crecer en la fe, servir a otros y construir amistades que duran.

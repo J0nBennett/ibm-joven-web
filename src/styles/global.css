@@ -1,1 +1,61 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-vibrant: #f59e0b;
+  /* Amber 500 */
+  --color-brand-success: #10b981;
+  /* Emerald 500 */
+
+  --animate-glow-vibrant: glow-vibrant 2s ease-in-out infinite alternate;
+  --animate-glow-success: glow-success 2s ease-in-out infinite alternate;
+
+  @keyframes glow-vibrant {
+    from {
+      box-shadow: 0 0 5px rgba(245, 158, 11, 0.4), 0 0 10px rgba(245, 158, 11, 0.2);
+    }
+
+    to {
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.8), 0 0 30px rgba(245, 158, 11, 0.4);
+    }
+  }
+
+  @keyframes glow-success {
+    from {
+      box-shadow: 0 0 5px rgba(16, 185, 129, 0.4), 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    to {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.4);
+    }
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  .mesh-gradient-vibrant {
+    background-color: #020617;
+    /* Darker Slate */
+    background-image:
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.2) 0px, transparent 50%);
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.6);
+    transform: translateY(-2px);
+  }
+}

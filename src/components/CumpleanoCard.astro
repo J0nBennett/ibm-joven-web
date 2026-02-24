@@ -8,15 +8,15 @@ interface Props {
 const { nombre, dia, esHoy = false } = Astro.props;
 ---
 
-<div class={`flex items-center p-4 rounded-xl shadow-sm border transition-all duration-300 group ${esHoy ? 'bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200 scale-105 ring-2 ring-pink-100 shadow-lg' : 'bg-white border-pink-100 hover:shadow-md'}`}>
-  <div class={`p-3 rounded-full mr-4 transition-transform group-hover:scale-110 ${esHoy ? 'bg-pink-500 text-white animate-bounce' : 'bg-pink-100'}`}>
+<div class={`flex items-center p-4 rounded-xl border transition-all duration-300 group ${esHoy ? 'bg-pink-900/20 border-pink-500/50 shadow-[0_0_20px_rgba(236,72,153,0.2)] scale-105' : 'glass-card border-white/5 hover:border-pink-500/30'}`}>
+  <div class={`p-3 rounded-full mr-4 transition-transform group-hover:scale-110 ${esHoy ? 'bg-pink-600 text-white animate-bounce shadow-lg shadow-pink-500/50' : 'bg-pink-900/40 text-pink-400'}`}>
     <span class="text-2xl">{esHoy ? '🎈' : '🎂'}</span>
   </div>
   <div>
-    <h4 class={`font-bold text-lg ${esHoy ? 'text-pink-900' : 'text-gray-800'}`}>
-        {nombre} {esHoy && <span class="text-xs font-black uppercase tracking-widest bg-pink-600 text-white px-2 py-0.5 rounded ml-1">¡Hoy!</span>}
+    <h4 class={`font-black text-lg ${esHoy ? 'text-white' : 'text-slate-100'}`}>
+        {nombre} {esHoy && <span class="text-[10px] font-black uppercase tracking-widest bg-pink-600 text-white px-2 py-0.5 rounded ml-1 shadow-sm">¡Hoy!</span>}
     </h4>
-    <p class={`${esHoy ? 'text-pink-700' : 'text-pink-600'} font-medium text-sm`}>
+    <p class={`${esHoy ? 'text-pink-400' : 'text-pink-500/80'} font-bold text-sm tracking-tight`}>
         {esHoy ? '¡Feliz Cumpleaños!' : `Cumple el ${dia}`}
     </p>
   </div>

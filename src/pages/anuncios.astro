@@ -17,7 +17,7 @@ try {
 
 <Layout title="Anuncios y Novedades | IBM Joven – Grupo Juvenil Cristiano Luque, Paraguay" description="Últimas noticias, anuncios y novedades del ministerio de jóvenes IBM Joven de la Iglesia Bautista Maranata en Luque, Paraguay.">
   <section class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Anuncios y Novedades</h1>
+    <h1 class="text-4xl font-black text-white mb-8 border-b border-white/5 pb-4 tracking-tight">Anuncios y <span class="text-brand-vibrant">Novedades</span></h1>
 
     <div class="grid gap-6 md:grid-cols-2">
       {anuncios.length > 0 ? (
@@ -35,7 +35,7 @@ try {
           />
         ))
       ) : (
-        <p class="text-gray-500 col-span-2 text-center py-10">No hay anuncios disponibles.</p>
+        <p class="text-slate-500 col-span-2 text-center py-10 font-medium italic">No hay anuncios disponibles por el momento.</p>
       )}
     </div>
   </section>

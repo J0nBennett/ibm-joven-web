@@ -1,0 +1,73 @@
+---
+// src/components/Countdown.astro
+---
+
+<div id="countdown-container" class="hidden glass-card p-6 rounded-2xl border-brand-vibrant/30 hover-glow group transition-all duration-500">
+    <div class="flex flex-col items-center">
+        <span class="text-[10px] font-black tracking-[0.2em] text-brand-vibrant uppercase mb-3 opacity-80 group-hover:opacity-100 transition-opacity">Siguiente Reunión</span>
+        <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+                <span id="days" class="text-3xl font-black text-white text-glow">00</span>
+                <span class="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1">Días</span>
+            </div>
+            <div class="text-2xl font-black text-brand-vibrant mt-0.5">:</div>
+            <div class="flex flex-col items-center">
+                <span id="hours" class="text-3xl font-black text-white text-glow">00</span>
+                <span class="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1">Horas</span>
+            </div>
+            <div class="text-2xl font-black text-brand-vibrant mt-0.5">:</div>
+            <div class="flex flex-col items-center">
+                <span id="minutes" class="text-3xl font-black text-white text-glow">00</span>
+                <span class="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1">Mins</span>
+            </div>
+            <div class="text-2xl font-black text-brand-vibrant mt-0.5">:</div>
+            <div class="flex flex-col items-center">
+                <span id="seconds" class="text-3xl font-black text-white text-glow">00</span>
+                <span class="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1">Segs</span>
+            </div>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-4 font-bold tracking-tight">
+            Sábado <span class="text-white">19:30 HS</span> • IBM Joven
+        </p>
+    </div>
+</div>
+
+<script>
+    function updateCountdown() {
+        const now = new Date();
+        const nextSaturday = new Date();
+        
+        // Calcular próximo sábado a las 19:30
+        const dayDifference = (6 - now.getDay() + 7) % 7;
+        nextSaturday.setDate(now.getDate() + dayDifference);
+        nextSaturday.setHours(19, 30, 0, 0);
+
+        // Si ya pasó el sábado de esta semana, ir al próximo
+        if (now > nextSaturday) {
+            nextSaturday.setDate(nextSaturday.getDate() + 7);
+        }
+
+        const diff = nextSaturday.getTime() - now.getTime();
+        
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const container = document.getElementById('countdown-container');
+        if (container) container.classList.remove('hidden');
+
+        const dElem = document.getElementById('days');
+        const hElem = document.getElementById('hours');
+        const mElem = document.getElementById('minutes');
+        const sElem = document.getElementById('seconds');
+
+        if (dElem) dElem.textContent = d.toString().padStart(2, '0');
+        if (hElem) hElem.textContent = h.toString().padStart(2, '0');
+        if (mElem) mElem.textContent = m.toString().padStart(2, '0');
+        if (sElem) sElem.textContent = s.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>

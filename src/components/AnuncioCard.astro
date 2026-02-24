@@ -34,7 +34,7 @@ function sanitizeHtml(html: string): string {
 const htmlContenido = tieneContenido ? sanitizeHtml(await marked.parse(contenido_md)) : "";
 ---
 
-<article class={`group relative flex flex-col h-full bg-slate-900 rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-800 hover:border-blue-500/50 ${className}`}>
+<article class={`group relative flex flex-col h-full bg-slate-900 rounded-xl shadow-md transition-all duration-500 overflow-hidden border border-slate-800 ${esFijo ? 'animate-glow-vibrant border-brand-vibrant/50' : 'hover:border-blue-500/50 hover-glow'} ${className}`}>
   <!-- Decorative Background Glow -->
   <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 opacity-50 group-hover:opacity-100 transition-opacity"></div>
 

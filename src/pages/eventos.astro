@@ -17,24 +17,24 @@ try {
 
 <Layout title="Eventos y Actividades | IBM Joven – Iglesia Bautista Maranata Luque" description="Calendario de eventos del ministerio juvenil IBM Joven. Reunión de Jóvenes los sábados 19:30 hs, Escuela Dominical y Culto Central los domingos en Luque, Paraguay.">
   <section class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 mb-4 border-b pb-4">Calendario de Eventos</h1>
+    <h1 class="text-4xl font-black text-white mb-6 border-b border-white/5 pb-4 tracking-tight">Calendario de <span class="text-brand-vibrant">Eventos</span></h1>
 
 
 
     <div class="space-y-6">
       
       <!-- EVENTS PINNED: Weekly Schedule -->
-      <article class="bg-white rounded-xl shadow-md border-l-4 border-l-purple-500 overflow-hidden relative">
-          <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Fijo</div>
+      <article class="glass-card rounded-2xl border border-white/5 overflow-hidden relative group hover:border-purple-500/30 transition-all duration-500">
+          <div class="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-widest z-20">Fijo</div>
           
-          <div class="flex flex-col md:flex-row">
-            <div class="bg-purple-50 text-purple-900 flex flex-col items-center justify-center p-6 md:w-40 shrink-0 text-center border-b md:border-b-0 md:border-r border-purple-100">
-                <span class="text-5xl mb-2">📅</span>
-                <span class="font-bold text-sm tracking-wide">HORARIOS<br>SEMANALES</span>
+          <div class="flex flex-col md:flex-row relative z-10">
+            <div class="bg-purple-900/30 text-purple-300 flex flex-col items-center justify-center p-6 md:w-40 shrink-0 text-center border-b md:border-b-0 md:border-r border-white/5">
+                <span class="text-5xl mb-2 text-glow">📅</span>
+                <span class="font-black text-xs tracking-[0.2em] uppercase leading-tight">Horarios<br>Semanales</span>
             </div>
 
             <div class="p-6 flex-grow">
-                <h3 class="text-xl font-bold text-gray-900 mb-6">Reuniones de Iglesia</h3>
+                <h3 class="text-2xl font-black text-white mb-6 tracking-tight">Reuniones de Iglesia</h3>
                 
                 <div class="space-y-4">
                     {/* Helper to generate recurring event links */}
@@ -69,15 +69,15 @@ try {
                         ];
 
                         return items.map(item => (
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-purple-200 transition-colors gap-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-purple-500/50 transition-all group/item gap-3">
                                 <div class="flex items-center gap-4">
-                                    <div class="bg-white p-2 rounded-md shadow-sm text-purple-700 font-bold text-center min-w-[3.5rem]">
-                                        <div class="text-xs uppercase text-gray-400">{item.day.substring(0,3)}</div>
-                                        <div>{item.time}</div>
+                                    <div class="bg-slate-900 p-2 rounded-lg shadow-inner text-purple-400 font-black text-center min-w-[3.5rem] border border-white/5 group-hover/item:border-purple-500/30 transition-colors">
+                                        <div class="text-[10px] uppercase text-slate-500 tracking-tighter">{item.day.substring(0,3)}</div>
+                                        <div class="text-lg">{item.time}</div>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-gray-800">{item.title}</h4>
-                                        <p class="text-xs text-gray-500">Iglesia Bautista Maranata</p>
+                                        <h4 class="font-bold text-slate-100">{item.title}</h4>
+                                        <p class="text-xs text-slate-500">Iglesia Bautista Maranata</p>
                                     </div>
                                 </div>
                                 
@@ -114,13 +114,13 @@ try {
           />
         ))
       ) : (
-        <p class="text-gray-500 text-center py-10">No hay eventos próximos.</p>
+        <p class="text-slate-500 text-center py-10 font-medium">No hay eventos próximos.</p>
       )}
     </div>
 
     <!-- SEO: texto introductorio con keywords locales -->
-    <div class="mt-16 pt-8 border-t border-gray-100">
-      <p class="text-gray-500 text-sm leading-relaxed text-center max-w-2xl mx-auto italic">
+    <div class="mt-16 pt-8 border-t border-white/5">
+      <p class="text-slate-500 text-sm leading-relaxed text-center max-w-2xl mx-auto italic">
         Cada semana en la <strong>Iglesia Bautista Maranata de Luque, Paraguay</strong>, nos reunimos
         para adorar y crecer juntos. Los <strong>sábados a las 19:30 hs</strong> tenemos nuestra
         Reunión de Jóvenes, y los domingos contamos con Escuela Dominical (08:30 hs),

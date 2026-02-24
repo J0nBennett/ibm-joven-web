@@ -1,0 +1,222 @@
+---
+// src/components/BibleQuiz.astro
+// La pregunta rota automáticamente cada semana según el número de semana del año.
+---
+
+<div class="glass-card p-8 rounded-3xl border-brand-success/30 max-w-2xl mx-auto my-12 relative overflow-hidden group animate-glow-success">
+    <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-success/10 blur-3xl rounded-full"></div>
+    
+    <div class="relative z-10">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-black text-white tracking-tight">Trivia <span class="text-brand-success">Bíblica</span></h3>
+            <span id="quiz-week-badge" class="bg-brand-success/20 text-brand-success text-[10px] font-black px-2 py-1 rounded uppercase tracking-widest">Semanal</span>
+        </div>
+
+        <div id="quiz-content">
+            <p id="question" class="text-lg text-slate-200 font-medium mb-8 leading-relaxed">Cargando pregunta...</p>
+
+            <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <!-- Options rendered by JS -->
+            </div>
+        </div>
+
+        <div id="quiz-result" class="hidden text-center py-6">
+            <div id="result-icon" class="text-4xl mb-4">🎉</div>
+            <h4 id="result-title" class="text-xl font-black text-white mb-2">¡Correcto!</h4>
+            <p id="result-desc" class="text-slate-400 text-sm mb-6"></p>
+            <button id="reset-quiz" class="text-[10px] font-black text-brand-success hover:text-white transition-colors uppercase tracking-[0.2em]">Intentar de nuevo</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const PREGUNTAS = [
+        {
+            pregunta: "¿Quién fue el primer rey de Israel?",
+            opciones: ["David", "Saúl", "Salomón", "Samuel"],
+            correcta: 1,
+            explicacion: "Saúl fue ungido por el profeta Samuel como el primer rey de Israel. (1 Samuel 10:1)"
+        },
+        {
+            pregunta: "¿Cuántos días estuvo Jonás en el vientre del gran pez?",
+            opciones: ["1 día", "3 días", "7 días", "40 días"],
+            correcta: 1,
+            explicacion: "Jonás estuvo tres días y tres noches en el vientre del pez. (Jonás 1:17)"
+        },
+        {
+            pregunta: "¿Quién escribió la mayoría de los Salmos?",
+            opciones: ["Moisés", "Salomón", "David", "Asaf"],
+            correcta: 2,
+            explicacion: "La mayoría de los 150 salmos son atribuidos al rey David."
+        },
+        {
+            pregunta: "¿Con qué alimento multiplicó Jesús los panes para la multitud?",
+            opciones: ["Trigo y aceite", "5 panes y 2 peces", "Maná del cielo", "7 panes y 3 peces"],
+            correcta: 1,
+            explicacion: "Jesús tomó 5 panes y 2 peces y alimentó a más de 5.000 personas. (Juan 6:9-11)"
+        },
+        {
+            pregunta: "¿Cuántos apóstoles eligió Jesús?",
+            opciones: ["7", "10", "12", "70"],
+            correcta: 2,
+            explicacion: "Jesús eligió a 12 apóstoles para que estuvieran con él y los enviara a predicar. (Marcos 3:14)"
+        },
+        {
+            pregunta: "¿Qué río cruzó Jesús cuando fue bautizado?",
+            opciones: ["El Nilo", "El Éufrates", "El Jordán", "El Mar de Galilea"],
+            correcta: 2,
+            explicacion: "Jesús fue bautizado por Juan en el río Jordán. (Marcos 1:9)"
+        },
+        {
+            pregunta: "¿En qué ciudad nació Jesús?",
+            opciones: ["Nazaret", "Jerusalén", "Belén", "Jericó"],
+            correcta: 2,
+            explicacion: "Jesús nació en Belén de Judea, según lo anunciado por los profetas. (Mateo 2:1)"
+        },
+        {
+            pregunta: "¿Quién traicionó a Jesús por 30 monedas de plata?",
+            opciones: ["Pedro", "Tomás", "Judas Iscariote", "Nicodemo"],
+            correcta: 2,
+            explicacion: "Judas Iscariote traicionó a Jesús entregándolo a los sumos sacerdotes. (Mateo 26:15)"
+        },
+        {
+            pregunta: "¿Cuál fue el primer milagro de Jesús?",
+            opciones: ["Sanó a un ciego", "Convirtió agua en vino", "Alimentó a 5.000", "Caminó sobre el agua"],
+            correcta: 1,
+            explicacion: "En las bodas de Caná, Jesús convirtió el agua en vino. (Juan 2:1-11)"
+        },
+        {
+            pregunta: "¿Quién escribió el libro de Apocalipsis?",
+            opciones: ["Pablo", "Pedro", "Juan", "Lucas"],
+            correcta: 2,
+            explicacion: "El apóstol Juan escribió el libro de Apocalipsis estando en la isla de Patmos. (Apocalipsis 1:9)"
+        },
+        {
+            pregunta: "¿A qué árbol se subió Zaqueo para ver a Jesús?",
+            opciones: ["Olivo", "Higuera", "Sicomoro", "Cedro"],
+            correcta: 2,
+            explicacion: "Zaqueo, siendo pequeño de estatura, se subió a un árbol sicomoro para ver a Jesús. (Lucas 19:4)"
+        },
+        {
+            pregunta: "¿Cuántos libros tiene el Nuevo Testamento?",
+            opciones: ["22", "27", "33", "39"],
+            correcta: 1,
+            explicacion: "El Nuevo Testamento tiene 27 libros, desde Mateo hasta Apocalipsis."
+        },
+        {
+            pregunta: "¿Qué versículo dice: 'Porque de tal manera amó Dios al mundo'?",
+            opciones: ["Romanos 8:28", "Salmo 23:1", "Juan 3:16", "Filipenses 4:13"],
+            correcta: 2,
+            explicacion: "Juan 3:16 dice: 'Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito...'"
+        },
+        {
+            pregunta: "¿Cuántos días tardó Dios en crear el mundo según Génesis?",
+            opciones: ["5 días", "6 días", "7 días", "10 días"],
+            correcta: 1,
+            explicacion: "Dios creó el mundo en 6 días y descansó el séptimo. (Génesis 1-2)"
+        },
+        {
+            pregunta: "¿Quién fue llevado al cielo en un carro de fuego?",
+            opciones: ["Moisés", "Elías", "Enoc", "Isaías"],
+            correcta: 1,
+            explicacion: "El profeta Elías fue llevado al cielo en un torbellino en un carro de fuego. (2 Reyes 2:11)"
+        },
+        {
+            pregunta: "¿Cuál es el versículo más corto de la Biblia?",
+            opciones: ["'Dios es amor.'", "'Jesús lloró.'", "'Orad sin cesar.'", "'Aleluya.'"],
+            correcta: 1,
+            explicacion: "'Jesús lloró.' (Juan 11:35) es ampliamente reconocido como el versículo más corto de la Biblia."
+        },
+        {
+            pregunta: "¿Quién construyó el arca según la Biblia?",
+            opciones: ["Abraham", "Noé", "Moisés", "Sem"],
+            correcta: 1,
+            explicacion: "Dios instruyó a Noé para que construyera el arca para salvar a su familia y a los animales. (Génesis 6:14)"
+        },
+        {
+            pregunta: "¿En qué lago predicó Jesús desde una barca?",
+            opciones: ["Lago Tiberíades (Galilea)", "Mar de la Sal", "Lago de Siria", "Mar Rojo"],
+            correcta: 0,
+            explicacion: "Jesús predicó desde una barca en el lago de Tiberíades (Mar de Galilea). (Lucas 5:3)"
+        },
+        {
+            pregunta: "¿Cuántas cartas escribió Pablo que están en el Nuevo Testamento?",
+            opciones: ["9", "11", "13", "15"],
+            correcta: 2,
+            explicacion: "Se atribuyen 13 cartas al apóstol Pablo en el Nuevo Testamento, desde Romanos hasta Filemón."
+        },
+        {
+            pregunta: "¿Quién dijo: 'No sean conformados a este siglo'?",
+            opciones: ["Jesús", "Pablo", "Pedro", "Santiago"],
+            correcta: 1,
+            explicacion: "Pablo escribió 'No os conforméis a este siglo' en Romanos 12:2."
+        },
+    ];
+
+    function getWeekNumber(date: Date): number {
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const dayNum = d.getUTCDay() || 7;
+        d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+    }
+
+    const semana = getWeekNumber(new Date());
+    const preguntaIndex = semana % PREGUNTAS.length;
+    const preguntaActual = PREGUNTAS[preguntaIndex];
+
+    // Render question
+    const questionEl = document.getElementById('question');
+    const badgeEl = document.getElementById('quiz-week-badge');
+    const optionsGrid = document.getElementById('options-grid');
+
+    if (questionEl) questionEl.textContent = preguntaActual.pregunta;
+    if (badgeEl) badgeEl.textContent = `Semana ${semana}`;
+
+    if (optionsGrid) {
+        optionsGrid.innerHTML = preguntaActual.opciones.map((op, i) => `
+            <button
+                class="quiz-option glass-card hover:bg-white/10 p-4 rounded-xl text-left text-sm text-slate-300 transition-all border-white/5 hover:border-brand-success/50"
+                data-correct="${i === preguntaActual.correcta}"
+            >${op}</button>
+        `).join('');
+    }
+
+    // Attach listeners
+    const content = document.getElementById('quiz-content');
+    const result = document.getElementById('quiz-result');
+    const titleEl = document.getElementById('result-title');
+    const descEl = document.getElementById('result-desc');
+    const iconEl = document.getElementById('result-icon');
+    const resetBtn = document.getElementById('reset-quiz');
+
+    document.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isCorrect = btn.getAttribute('data-correct') === 'true';
+
+            if (content && result && titleEl && descEl && iconEl) {
+                content.classList.add('hidden');
+                result.classList.remove('hidden');
+
+                if (isCorrect) {
+                    titleEl.textContent = '¡Correcto! 🎉';
+                    titleEl.className = 'text-xl font-black text-brand-success mb-2';
+                    iconEl.textContent = '🎉';
+                    descEl.textContent = preguntaActual.explicacion;
+                } else {
+                    titleEl.textContent = '¡Casi!';
+                    titleEl.className = 'text-xl font-black text-red-400 mb-2';
+                    iconEl.textContent = '📖';
+                    descEl.textContent = preguntaActual.explicacion;
+                }
+            }
+        });
+    });
+
+    resetBtn?.addEventListener('click', () => {
+        if (content && result) {
+            result.classList.add('hidden');
+            content.classList.remove('hidden');
+        }
+    });
+</script>

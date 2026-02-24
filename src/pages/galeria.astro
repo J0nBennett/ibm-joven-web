@@ -17,14 +17,14 @@ try {
 
 <Layout title="Galería de Fotos | IBM Joven – Momentos del Grupo Juvenil Maranata Luque" description="Revivé los mejores momentos del ministerio juvenil IBM Joven: campamentos, retiros, deportes y reuniones de la Iglesia Bautista Maranata en Luque, Paraguay.">
     <section class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2 text-center">Galería de Fotos</h1>
-        <p class="text-center text-gray-600 mb-12">Revive nuestros mejores momentos.</p>
+        <h1 class="text-4xl font-black text-white mb-2 text-center tracking-tight">Galería de <span class="text-brand-vibrant">Fotos</span></h1>
+        <p class="text-center text-slate-400 mb-12 font-medium">Revive nuestros mejores momentos.</p>
 
         {albums.length > 0 ? (
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {albums.map((album) => (
-                    <a href={album.url_album} target="_blank" rel="noopener noreferrer" class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 block">
-                        <div class="aspect-video bg-gray-200 relative overflow-hidden">
+                    <a href={album.url_album} target="_blank" rel="noopener noreferrer" class="group relative bg-slate-900 rounded-2xl shadow-xl hover:shadow-brand-vibrant/10 transition-all duration-500 overflow-hidden border border-white/5 block hover:-translate-y-1">
+                        <div class="aspect-video bg-slate-800 relative overflow-hidden">
                             {album.foto_portada ? (
                                 <img 
                                     src={album.foto_portada} 
@@ -32,11 +32,11 @@ try {
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                             ) : (
-                                <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-100 group-hover:bg-slate-100 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="w-full h-full flex flex-col items-center justify-center text-slate-500 bg-slate-800 group-hover:bg-slate-700 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-2 opacity-30 text-brand-vibrant" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <span class="text-sm font-medium">Ver Álbum</span>
+                                    <span class="text-xs font-black uppercase tracking-widest">Ver Álbum</span>
                                 </div>
                             )}
                             
@@ -45,8 +45,8 @@ try {
                         </div>
                         
                         <div class="p-5">
-                            <h3 class="font-bold text-xl text-gray-900 mb-2 group-hover:text-blue-700 transition">{album.titulo}</h3>
-                            <div class="flex items-center text-blue-600 font-medium text-sm">
+                            <h3 class="font-black text-xl text-white mb-2 group-hover:text-brand-vibrant transition-colors">{album.titulo}</h3>
+                            <div class="flex items-center text-blue-400 font-bold text-sm">
                                 <span>Ver fotos en Drive/Photos</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -57,11 +57,11 @@ try {
                 ))}
             </div>
         ) : (
-            <div class="text-center py-20 bg-gray-50 rounded-xl border border-dashed border-gray-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="text-center py-20 glass-card rounded-2xl border border-white/5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p class="text-lg text-gray-500">Pronto subiremos fotos de nuestras actividades.</p>
+                <p class="text-lg text-slate-500 font-medium">Pronto subiremos fotos de nuestras actividades.</p>
             </div>
         )}
     </section>
