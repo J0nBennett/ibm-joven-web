@@ -2,22 +2,69 @@
 interface Props {
   nombre: string;
   dia: number;
-  esHoy?: boolean;
+  mes: number;
 }
 
-const { nombre, dia, esHoy = false } = Astro.props;
+const { nombre, dia, mes } = Astro.props;
 ---
 
-<div class={`flex items-center p-4 rounded-xl border transition-all duration-300 group ${esHoy ? 'bg-pink-900/20 border-pink-500/50 shadow-[0_0_20px_rgba(236,72,153,0.2)] scale-105' : 'glass-card border-white/5 hover:border-pink-500/30'}`}>
-  <div class={`p-3 rounded-full mr-4 transition-transform group-hover:scale-110 ${esHoy ? 'bg-pink-600 text-white animate-bounce shadow-lg shadow-pink-500/50' : 'bg-pink-900/40 text-pink-400'}`}>
-    <span class="text-2xl">{esHoy ? '🎈' : '🎂'}</span>
+<div class="cumple-card flex items-center p-4 rounded-xl border transition-all duration-300 group glass-card border-white/5 hover:border-pink-500/30" data-dia={dia} data-mes={mes}>
+  <div class="cumple-icon p-3 rounded-full mr-4 transition-transform group-hover:scale-110 bg-pink-900/40 text-pink-400">
+    <span class="cumple-emoji text-2xl">🎂</span>
   </div>
   <div>
-    <h4 class={`font-black text-lg ${esHoy ? 'text-white' : 'text-slate-100'}`}>
-        {nombre} {esHoy && <span class="text-[10px] font-black uppercase tracking-widest bg-pink-600 text-white px-2 py-0.5 rounded ml-1 shadow-sm">¡Hoy!</span>}
+    <h4 class="cumple-nombre font-black text-lg text-slate-100">
+        {nombre}
     </h4>
-    <p class={`${esHoy ? 'text-pink-400' : 'text-pink-500/80'} font-bold text-sm tracking-tight`}>
-        {esHoy ? '¡Feliz Cumpleaños!' : `Cumple el ${dia}`}
+    <p class="cumple-texto text-pink-500/80 font-bold text-sm tracking-tight">
+        {`Cumple el ${dia}`}
     </p>
   </div>
 </div>
+
+<script is:inline>
+  (function() {
+    if (window.__cumpleHighlightDone) return;
+    window.__cumpleHighlightDone = true;
+
+    var hoy = new Date();
+    var diaHoy = hoy.getDate();
+    var mesHoy = hoy.getMonth() + 1;
+
+    document.querySelectorAll('.cumple-card').forEach(function(card) {
+      var dia = parseInt(card.getAttribute('data-dia') || '0');
+      var mes = parseInt(card.getAttribute('data-mes') || '0');
+
+      if (dia === diaHoy && mes === mesHoy) {
+        card.classList.remove('glass-card', 'border-white/5', 'hover:border-pink-500/30');
+        card.classList.add('bg-pink-900/20', 'border-pink-500/50', 'shadow-[0_0_20px_rgba(236,72,153,0.2)]', 'scale-105');
+
+        var icon = card.querySelector('.cumple-icon');
+        if (icon) {
+          icon.classList.remove('bg-pink-900/40', 'text-pink-400');
+          icon.classList.add('bg-pink-600', 'text-white', 'animate-bounce', 'shadow-lg', 'shadow-pink-500/50');
+        }
+
+        var emoji = card.querySelector('.cumple-emoji');
+        if (emoji) emoji.textContent = '🎈';
+
+        var nombre = card.querySelector('.cumple-nombre');
+        if (nombre) {
+          nombre.classList.remove('text-slate-100');
+          nombre.classList.add('text-white');
+          var badge = document.createElement('span');
+          badge.className = 'text-[10px] font-black uppercase tracking-widest bg-pink-600 text-white px-2 py-0.5 rounded ml-1 shadow-sm';
+          badge.textContent = '¡Hoy!';
+          nombre.appendChild(badge);
+        }
+
+        var texto = card.querySelector('.cumple-texto');
+        if (texto) {
+          texto.classList.remove('text-pink-500/80');
+          texto.classList.add('text-pink-400');
+          texto.textContent = '¡Feliz Cumpleaños!';
+        }
+      }
+    });
+  })();
+</script>

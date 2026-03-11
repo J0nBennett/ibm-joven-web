@@ -236,10 +236,10 @@ try {
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {grupo.items.map(cumple => (
-                <CumpleanoCard 
-                  nombre={cumple.nombre} 
-                  dia={parseInt(cumple.dia)} 
-                  esHoy={parseInt(cumple.dia) === diaActual && parseInt(cumple.mes) === mesActual} 
+                <CumpleanoCard
+                  nombre={cumple.nombre}
+                  dia={parseInt(cumple.dia)}
+                  mes={parseInt(cumple.mes)}
                 />
               ))}
             </div>
