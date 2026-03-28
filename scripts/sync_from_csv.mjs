@@ -83,21 +83,21 @@ function getMockGaleria() {
             "id": "GAL-001",
             "titulo": "Campamento 2K22 Sapukai",
             "url_album": "https://drive.google.com/drive/folders/1BKmUqAfMdydONrEGqeQfX3IyvSy8fwCD?usp=drive_link",
-            "foto_portada": "https://loremflickr.com/800/600/hill,activities/all",
+            "foto_portada": "/img/gallery/campa-2022.jpg",
             "estado": "PUBLISH"
         },
         {
             "id": "GAL-002",
-            "titulo": "Corrida Primavera 2023",
+            "titulo": "El Torneo 2023",
             "url_album": "https://drive.google.com/drive/folders/163GxHdEH_o4OB0QdPOq3hmjURmvKevxS?usp=drive_link",
-            "foto_portada": "https://loremflickr.com/800/600/flash,running/all",
+            "foto_portada": "/img/gallery/Torneo-2023.jpeg",
             "estado": "PUBLISH"
         },
         {
             "id": "GAL-003",
             "titulo": "Retiro Cambyreta 2023",
             "url_album": "https://drive.google.com/drive/folders/1IrxnqSOepinY7w_ORJmXH-de_ExwCSBp?usp=drive_link",
-            "foto_portada": "https://loremflickr.com/800/600/retreat,spiritual,prayer/all",
+            "foto_portada": "/img/gallery/retiro-cambyreta.jpeg",
             "estado": "PUBLISH"
         }
     ];
